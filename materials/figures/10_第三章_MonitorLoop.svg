@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="500" viewBox="0 0 1100 500" role="img" aria-labelledby="title desc">
+  <title id="title">Monitor Loop 长程任务监控</title>
+  <desc id="desc">Worker 负责长程执行，独立 Monitor 定期检查目标偏移与事实错误，必要时通知 Human，并在获批后把反馈注入 Worker。</desc>
+  <rect width="1100" height="500" fill="#fbfaf7"/>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#7b8792"/></marker>
+    <marker id="purple" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#a855f7"/></marker>
+    <marker id="green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#22c55e"/></marker>
+  </defs>
+  <g font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif">
+    <text x="42" y="46" font-size="25" font-weight="650" fill="#1f2933">Monitor Loop：让 Human 只在需要时回来</text>
+    <text x="42" y="75" font-size="15" fill="#68737d">把高频、机械的值守交给外部 Monitor，把人留给方向、策略和责任判断</text>
+    <line x1="275" y1="235" x2="400" y2="235" stroke="#7b8792" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="675" y1="235" x2="800" y2="235" stroke="#7b8792" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M 535 190 C 535 120, 205 120, 205 190" fill="none" stroke="#a855f7" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#purple)"/>
+    <text x="370" y="112" text-anchor="middle" font-size="13" font-style="italic" fill="#7c3aed">定时读取 Goal、代码库与 Transcript</text>
+    <path d="M 800 300 C 700 430, 340 430, 275 300" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#green)"/>
+    <text x="540" y="445" text-anchor="middle" font-size="13" font-style="italic" fill="#15803d">Steer Prompt / 受控反馈回流 Worker</text>
+    <rect x="70" y="190" width="205" height="95" rx="12" fill="#ffedd5" stroke="#f97316" stroke-width="2"/>
+    <text x="172" y="225" text-anchor="middle" font-size="13" fill="#c2410c">Worker</text><text x="172" y="252" text-anchor="middle" font-size="17" font-weight="bold" fill="#1f2933">Codex /goal</text><text x="172" y="272" text-anchor="middle" font-size="12" fill="#9a3412">长程执行与产出</text>
+    <rect x="400" y="190" width="275" height="95" rx="12" fill="#f3e8ff" stroke="#a855f7" stroke-width="2"/>
+    <text x="537" y="225" text-anchor="middle" font-size="13" fill="#7c3aed">Monitor</text><text x="537" y="252" text-anchor="middle" font-size="17" font-weight="bold" fill="#1f2933">Claude /loop</text><text x="537" y="272" text-anchor="middle" font-size="12" fill="#7c3aed">Goal Drift · Stub · 事实错误</text>
+    <rect x="800" y="190" width="220" height="95" rx="12" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+    <text x="910" y="225" text-anchor="middle" font-size="13" fill="#2563eb">Human</text><text x="910" y="252" text-anchor="middle" font-size="17" font-weight="bold" fill="#1f2933">手机 / Remote</text><text x="910" y="272" text-anchor="middle" font-size="12" fill="#2563eb">审批新方向与优先级</text>
+    <rect x="400" y="335" width="275" height="45" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="537" y="363" text-anchor="middle" font-size="13" fill="#475569">Human 只处理异常与不可自动化判断</text>
+  </g>
+</svg>

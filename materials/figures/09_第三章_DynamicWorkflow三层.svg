@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="500" viewBox="0 0 1120 500" role="img" aria-labelledby="title desc">
+  <title id="title">Dynamic Workflow 的三个层次</title>
+  <desc id="desc">静态流程、动态生成或选择流程、运行中自我修改流程分别对应越来越高的运行时自由度和控制风险。</desc>
+  <rect width="1120" height="500" fill="#fbfaf7"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif">
+    <text x="42" y="46" font-size="25" font-weight="650" fill="#1f2933">Dynamic Workflow：三个层次要分开</text>
+    <text x="42" y="75" font-size="15" fill="#68737d">从运行前固定结构，到运行时生成结构，再到执行中修改结构，自由度与风险一起上升</text>
+    <rect x="45" y="125" width="310" height="275" rx="14" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+    <rect x="405" y="125" width="310" height="275" rx="14" fill="#ffedd5" stroke="#f97316" stroke-width="2"/>
+    <rect x="765" y="125" width="310" height="275" rx="14" fill="#f3e8ff" stroke="#a855f7" stroke-width="2"/>
+    <text x="200" y="170" text-anchor="middle" font-size="19" font-weight="bold" fill="#1d4ed8">1. 静态流程</text>
+    <text x="200" y="210" text-anchor="middle" font-size="14" fill="#1f2933">人预先写好图、条件和检查</text>
+    <text x="200" y="250" text-anchor="middle" font-size="13" fill="#475569">Agent 按固定结构执行</text>
+    <text x="200" y="300" text-anchor="middle" font-size="13" fill="#475569">优点：稳定、易审计</text>
+    <text x="200" y="330" text-anchor="middle" font-size="13" fill="#475569">风险：遇到新信息会僵硬</text>
+    <text x="560" y="170" text-anchor="middle" font-size="19" font-weight="bold" fill="#c2410c">2. 动态生成 / 选择</text>
+    <text x="560" y="210" text-anchor="middle" font-size="14" fill="#1f2933">Agent 现场生成脚本</text>
+    <text x="560" y="250" text-anchor="middle" font-size="13" fill="#475569">或从已有 Flow 中组合</text>
+    <text x="560" y="300" text-anchor="middle" font-size="13" fill="#475569">优点：适应任务、并行度高</text>
+    <text x="560" y="330" text-anchor="middle" font-size="13" fill="#475569">风险：生成后结构仍需验证</text>
+    <text x="920" y="170" text-anchor="middle" font-size="19" font-weight="bold" fill="#7c3aed">3. 运行中自我修改</text>
+    <text x="920" y="210" text-anchor="middle" font-size="14" fill="#1f2933">Agent 或 Human 提交 Graph Revision</text>
+    <text x="920" y="250" text-anchor="middle" font-size="13" fill="#475569">后续节点使用新的 Flow</text>
+    <text x="920" y="300" text-anchor="middle" font-size="13" fill="#475569">优点：可以应对未知信息</text>
+    <text x="920" y="330" text-anchor="middle" font-size="13" fill="#475569">风险：权限、审计、回滚更重要</text>
+    <line x1="355" y1="262" x2="405" y2="262" stroke="#7b8792" stroke-width="2"/>
+    <line x1="715" y1="262" x2="765" y2="262" stroke="#7b8792" stroke-width="2"/>
+    <text x="560" y="450" text-anchor="middle" font-size="14" fill="#52606d">H3 讨论的关键，不只是“能不能动态”，还包括谁来改、何时改、怎样证明改得合理。</text>
+  </g>
+</svg>

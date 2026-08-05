@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="520" viewBox="0 0 1000 520" role="img" aria-labelledby="title desc">
+  <title id="title">PPT 结构图在 RLCR 复核前后的变化</title>
+  <desc id="desc">左侧是未经检查的错位结构图，右侧是经过 Reviewer 检查后对齐、间距一致、箭头连接准确的结构图。</desc>
+  <rect width="1000" height="520" fill="#fbfaf7"/>
+  <defs>
+    <marker id="grayArrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#94a3b8"/></marker>
+    <marker id="greenArrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#16a34a"/></marker>
+  </defs>
+  <g font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif">
+    <text x="40" y="45" font-size="25" font-weight="650" fill="#1f2933">PPT 结构图：从“看起来差不多”到可验收</text>
+    <text x="40" y="74" font-size="15" fill="#68737d">Humanize 1.0 的 RLCR 把规整、连接和间距变成一轮轮可检查的问题</text>
+
+    <rect x="35" y="105" width="440" height="335" rx="14" fill="#fff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="65" y="145" font-size="18" font-weight="bold" fill="#b91c1c">第一轮生成：结构未校验</text>
+    <text x="65" y="170" font-size="13" fill="#64748b">箭头、间距和层级关系都可能失真</text>
+    <rect x="85" y="215" width="120" height="55" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+    <rect x="285" y="195" width="120" height="55" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+    <rect x="160" y="335" width="120" height="55" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+    <text x="145" y="248" text-anchor="middle" font-size="14" fill="#7f1d1d">输入</text>
+    <text x="345" y="228" text-anchor="middle" font-size="14" fill="#7f1d1d">处理</text>
+    <text x="220" y="368" text-anchor="middle" font-size="14" fill="#7f1d1d">输出</text>
+    <path d="M 205 238 L 280 212" stroke="#94a3b8" stroke-width="2" marker-end="url(#grayArrow)"/>
+    <path d="M 345 250 L 275 330" stroke="#94a3b8" stroke-width="2" marker-end="url(#grayArrow)"/>
+    <path d="M 160 335 L 125 275" stroke="#ef4444" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="325" y="405" font-size="12" fill="#b91c1c">连线未接上 / 间距不一致</text>
+
+    <rect x="525" y="105" width="440" height="335" rx="14" fill="#fff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="555" y="145" font-size="18" font-weight="bold" fill="#15803d">Review 后：结构清晰</text>
+    <text x="555" y="170" font-size="13" fill="#64748b">Builder 按检查结果逐项修正</text>
+    <rect x="595" y="215" width="120" height="55" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="2"/>
+    <rect x="775" y="215" width="120" height="55" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="2"/>
+    <rect x="685" y="335" width="120" height="55" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="2"/>
+    <text x="655" y="248" text-anchor="middle" font-size="14" fill="#166534">输入</text>
+    <text x="835" y="248" text-anchor="middle" font-size="14" fill="#166534">处理</text>
+    <text x="745" y="368" text-anchor="middle" font-size="14" fill="#166534">输出</text>
+    <path d="M 715 242 L 770 242" stroke="#16a34a" stroke-width="2.5" marker-end="url(#greenArrow)"/>
+    <path d="M 835 270 L 770 330" stroke="#16a34a" stroke-width="2.5" marker-end="url(#greenArrow)"/>
+    <path d="M 685 330 L 650 275" stroke="#16a34a" stroke-width="2.5" marker-end="url(#greenArrow)"/>
+    <text x="555" y="405" font-size="12" fill="#166534">对齐、间隔、连接关系均可复核</text>
+
+    <text x="500" y="485" text-anchor="middle" font-size="14" fill="#52606d">Review 不替模型设计风格，而是把“规整”变成可以反复检查和修正的约束。</text>
+  </g>
+</svg>

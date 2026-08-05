@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="430" viewBox="0 0 1080 430" role="img" aria-labelledby="title desc">
+  <title id="title">Humanize 1.0、2.0、3.0 路线</title>
+  <desc id="desc">Humanize 1.0 是能工作的 Flow，2.0 是人构建和测试 Flow 的平台语言，3.0 是让 Agent 在 Flow 中构造和演进 Flow 的自动化系统。</desc>
+  <rect width="1080" height="430" fill="#fbfaf7"/>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#7b8792"/></marker></defs>
+  <g font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif">
+    <text x="42" y="46" font-size="25" font-weight="650" fill="#1f2933">Humanize：从固定 Flow 到 Flow 的自动化演进</text>
+    <text x="42" y="75" font-size="15" fill="#68737d">三代路线不是干净的产品切换，而是实践中不断重新划定边界</text>
+    <line x1="330" y1="225" x2="390" y2="225" stroke="#7b8792" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="690" y1="225" x2="750" y2="225" stroke="#7b8792" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="45" y="135" width="285" height="180" rx="14" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+    <rect x="390" y="135" width="300" height="180" rx="14" fill="#ffedd5" stroke="#f97316" stroke-width="2"/>
+    <rect x="750" y="135" width="285" height="180" rx="14" fill="#f3e8ff" stroke="#a855f7" stroke-width="2"/>
+    <text x="187" y="175" text-anchor="middle" font-size="20" font-weight="bold" fill="#1d4ed8">Humanize 1.0</text>
+    <text x="187" y="211" text-anchor="middle" font-size="16" fill="#1f2933">A flow that works.</text>
+    <text x="187" y="250" text-anchor="middle" font-size="13" fill="#475569">Builder → Reviewer → 验收</text>
+    <text x="187" y="274" text-anchor="middle" font-size="13" fill="#475569">固定 RLCR / Loop Engine</text>
+    <text x="540" y="175" text-anchor="middle" font-size="20" font-weight="bold" fill="#c2410c">Humanize 2.0</text>
+    <text x="540" y="211" text-anchor="middle" font-size="16" fill="#1f2933">Human builds and tests flows.</text>
+    <text x="540" y="250" text-anchor="middle" font-size="13" fill="#475569">Flow IR / 平台语言 / 可替换后端</text>
+    <text x="540" y="274" text-anchor="middle" font-size="13" fill="#475569">人构造、运行、检查 Flow</text>
+    <text x="892" y="175" text-anchor="middle" font-size="20" font-weight="bold" fill="#7c3aed">Humanize 3.0</text>
+    <text x="892" y="211" text-anchor="middle" font-size="16" fill="#1f2933">Agents build and evolve flows.</text>
+    <text x="892" y="250" text-anchor="middle" font-size="13" fill="#475569">Dynamic Workflow / Flow Infra</text>
+    <text x="892" y="274" text-anchor="middle" font-size="13" fill="#475569">Agent 参与生成和修改 Flow</text>
+    <text x="540" y="375" text-anchor="middle" font-size="14" fill="#52606d">H2 的部分能力后来成为 H3 的底座，H1 则作为经过真实任务检验的专用 Flow 继续存在。</text>
+  </g>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="400" viewBox="0 0 1120 400" role="img" aria-labelledby="title desc">
+  <title id="title">Humanize 2.0 Flow 编译链</title>
+  <desc id="desc">自然语言目标经过 Flow 表示、静态检查与变换、后端适配，最后交给 Agent CLI 执行。</desc>
+  <rect width="1120" height="400" fill="#fbfaf7"/>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#7b8792"/></marker></defs>
+  <g font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif">
+    <text x="42" y="46" font-size="25" font-weight="650" fill="#1f2933">Humanize 2.0：把 Flow 从模型和 CLI 里抽出来</text>
+    <text x="42" y="75" font-size="15" fill="#68737d">相对稳定的结构进入中间层，变化更快的模型与后端留在适配层</text>
+    <line x1="220" y1="215" x2="260" y2="215" stroke="#7b8792" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="440" y1="215" x2="480" y2="215" stroke="#7b8792" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="660" y1="215" x2="700" y2="215" stroke="#7b8792" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="880" y1="215" x2="920" y2="215" stroke="#7b8792" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="35" y="175" width="185" height="80" rx="11" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+    <rect x="260" y="175" width="180" height="80" rx="11" fill="#ffedd5" stroke="#f97316" stroke-width="2"/>
+    <rect x="480" y="175" width="180" height="80" rx="11" fill="#f3e8ff" stroke="#a855f7" stroke-width="2"/>
+    <rect x="700" y="175" width="180" height="80" rx="11" fill="#f1f5f9" stroke="#64748b" stroke-width="2"/>
+    <rect x="920" y="175" width="165" height="80" rx="11" fill="#dcfce7" stroke="#22c55e" stroke-width="2"/>
+    <text x="127" y="207" text-anchor="middle" font-size="12" fill="#2563eb">Human intent</text><text x="127" y="232" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f2933">自然语言目标</text>
+    <text x="350" y="207" text-anchor="middle" font-size="12" fill="#c2410c">Flow layer</text><text x="350" y="232" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f2933">节点 / 边 / 状态</text>
+    <text x="570" y="207" text-anchor="middle" font-size="12" fill="#7c3aed">Compiler-like</text><text x="570" y="232" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f2933">静态检查与变换</text>
+    <text x="790" y="207" text-anchor="middle" font-size="12" fill="#475569">Backend</text><text x="790" y="232" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f2933">模型 / CLI 适配</text>
+    <text x="1002" y="207" text-anchor="middle" font-size="12" fill="#15803d">Runtime</text><text x="1002" y="232" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f2933">Agent 执行</text>
+    <text x="350" y="310" text-anchor="middle" font-size="13" fill="#52606d">Flow IR / Workflow-as-PL</text>
+    <text x="570" y="310" text-anchor="middle" font-size="13" fill="#52606d">死路径、缺输入、循环和权限</text>
+    <text x="790" y="310" text-anchor="middle" font-size="13" fill="#52606d">Claude Code · Codex · Kimi · OpenCode</text>
+    <text x="560" y="365" text-anchor="middle" font-size="14" fill="#52606d">目标是结构更稳定、结果更可观察；Agent 的概率性不会被编译器类比消除。</text>
+  </g>
+</svg>

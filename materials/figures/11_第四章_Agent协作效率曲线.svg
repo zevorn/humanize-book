@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="560"
+     viewBox="0 0 1120 560" role="img"
+     aria-labelledby="title desc">
+    <title id="title">Agent 介入后的协作效率概念曲线</title>
+    <desc id="desc">
+        开发效率在直接引入 Agent 后短暂上升，随后因复杂度、返工和认知债下降；
+        当团队建立任务适配的 Harness 与以人为核心的协作方式后，效率重新上升。
+    </desc>
+    <rect width="1120" height="560" fill="#fbfaf7"/>
+
+    <g font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC',
+                    'Noto Sans CJK SC', sans-serif">
+        <text x="60" y="58" font-size="25" font-weight="650"
+              fill="#1f2933">Agent 介入后的协作效率：一条概念曲线</text>
+        <text x="60" y="88" font-size="15" fill="#68737d">
+            纵轴没有量纲；曲线表达社区的阶段性判断，不代表实测 Benchmark
+        </text>
+
+        <line x1="92" y1="442" x2="1050" y2="442"
+              stroke="#7b8792" stroke-width="1.5"/>
+        <line x1="92" y1="442" x2="92" y2="116"
+              stroke="#7b8792" stroke-width="1.5"/>
+        <text x="28" y="132" font-size="15" fill="#52606d"
+              transform="rotate(-90 28 132)">可持续开发效率</text>
+        <text x="920" y="486" font-size="15" fill="#52606d">协作方式演进</text>
+
+        <line x1="92" y1="328" x2="1050" y2="328"
+              stroke="#b7bec5" stroke-width="1.5" stroke-dasharray="7 7"/>
+        <text x="100" y="316" font-size="14" fill="#7b8792">
+            传统开发基线（概念）
+        </text>
+
+        <path d="M 120 328
+                 C 220 326, 260 232, 350 220
+                 C 425 212, 455 382, 555 390
+                 C 650 396, 710 286, 790 228
+                 C 875 164, 948 128, 1028 116"
+              fill="none" stroke="#1f6f8b" stroke-width="6"
+              stroke-linecap="round"/>
+
+        <circle cx="120" cy="328" r="7" fill="#1f6f8b"/>
+        <circle cx="350" cy="220" r="7" fill="#1f6f8b"/>
+        <circle cx="555" cy="390" r="7" fill="#d97706"/>
+        <circle cx="790" cy="228" r="7" fill="#1f6f8b"/>
+        <circle cx="1028" cy="116" r="7" fill="#1f6f8b"/>
+
+        <line x1="350" y1="220" x2="350" y2="442"
+              stroke="#d3d8dd" stroke-width="1" stroke-dasharray="4 5"/>
+        <line x1="555" y1="390" x2="555" y2="442"
+              stroke="#d3d8dd" stroke-width="1" stroke-dasharray="4 5"/>
+        <line x1="790" y1="228" x2="790" y2="442"
+              stroke="#d3d8dd" stroke-width="1" stroke-dasharray="4 5"/>
+
+        <g font-size="15" fill="#25313c">
+            <text x="105" y="468">传统开发</text>
+            <text x="292" y="468">直接使用 Agent</text>
+            <text x="496" y="468">复杂度反噬</text>
+            <text x="700" y="468">Harness + Human</text>
+            <text x="955" y="468">持续演进</text>
+        </g>
+
+        <g font-size="14" fill="#52606d">
+            <text x="280" y="188">局部效率高峰</text>
+            <text x="468" y="420">返工、漂移、认知债</text>
+            <text x="710" y="198">建立责任与验证结构</text>
+            <text x="845" y="100">高于传统方式的增长斜率</text>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="540" viewBox="0 0 1080 540" role="img" aria-labelledby="title desc">
+  <title id="title">Subagent 与 Agent Teams 协作拓扑</title>
+  <desc id="desc">左侧是 Leader 通过独立上下文和产物汇总管理 Subagent，右侧是 Agent Teams 或 Swarm 中 Agent 之间直接通信形成的网状拓扑。</desc>
+  <rect width="1080" height="540" fill="#fbfaf7"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif">
+    <text x="42" y="44" font-size="25" font-weight="650" fill="#1f2933">多 Agent：数量之外，先看协作拓扑</text>
+    <text x="42" y="73" font-size="15" fill="#68737d">社区争论的重点从“开多少个 Agent”转向上下文、通信、权限和可观察性</text>
+
+    <rect x="35" y="105" width="480" height="365" rx="14" fill="#fff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="65" y="145" font-size="18" font-weight="bold" fill="#2563eb">Subagent：集中汇总</text>
+    <text x="65" y="170" font-size="13" fill="#64748b">子任务独立，结果通过文件或 Artifact 回到 Leader</text>
+    <rect x="195" y="205" width="160" height="60" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+    <text x="275" y="230" text-anchor="middle" font-size="12" font-style="italic" fill="#2563eb">Leader</text>
+    <text x="275" y="251" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f2933">计划 / 汇总 / 放行</text>
+    <line x1="275" y1="265" x2="275" y2="305" stroke="#7b8792" stroke-width="2"/>
+    <line x1="275" y1="305" x2="130" y2="350" stroke="#7b8792" stroke-width="2"/>
+    <line x1="275" y1="305" x2="275" y2="350" stroke="#7b8792" stroke-width="2"/>
+    <line x1="275" y1="305" x2="420" y2="350" stroke="#7b8792" stroke-width="2"/>
+    <rect x="75" y="350" width="110" height="52" rx="9" fill="#ffedd5" stroke="#f97316" stroke-width="2"/>
+    <rect x="220" y="350" width="110" height="52" rx="9" fill="#ffedd5" stroke="#f97316" stroke-width="2"/>
+    <rect x="365" y="350" width="110" height="52" rx="9" fill="#ffedd5" stroke="#f97316" stroke-width="2"/>
+    <text x="130" y="381" text-anchor="middle" font-size="14" fill="#9a3412">Build A</text>
+    <text x="275" y="381" text-anchor="middle" font-size="14" fill="#9a3412">Build B</text>
+    <text x="420" y="381" text-anchor="middle" font-size="14" fill="#9a3412">Explore C</text>
+    <text x="275" y="438" text-anchor="middle" font-size="12" fill="#52606d">优点：边界清楚、容易审计</text>
+
+    <rect x="565" y="105" width="480" height="365" rx="14" fill="#fff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="595" y="145" font-size="18" font-weight="bold" fill="#a855f7">Agent Teams / Swarm：网状通信</text>
+    <text x="595" y="170" font-size="13" fill="#64748b">Agent 之间可以直接交流，探索空间更大，黑盒也更大</text>
+    <line x1="690" y1="265" x2="835" y2="235" stroke="#a855f7" stroke-width="2"/>
+    <line x1="835" y1="235" x2="930" y2="330" stroke="#a855f7" stroke-width="2"/>
+    <line x1="930" y1="330" x2="760" y2="390" stroke="#a855f7" stroke-width="2"/>
+    <line x1="760" y1="390" x2="690" y2="265" stroke="#a855f7" stroke-width="2"/>
+    <line x1="690" y1="265" x2="930" y2="330" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <line x1="835" y1="235" x2="760" y2="390" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <circle cx="690" cy="265" r="38" fill="#f3e8ff" stroke="#a855f7" stroke-width="2"/>
+    <circle cx="835" cy="235" r="38" fill="#f3e8ff" stroke="#a855f7" stroke-width="2"/>
+    <circle cx="930" cy="330" r="38" fill="#f3e8ff" stroke="#a855f7" stroke-width="2"/>
+    <circle cx="760" cy="390" r="38" fill="#f3e8ff" stroke="#a855f7" stroke-width="2"/>
+    <text x="690" y="270" text-anchor="middle" font-size="14" fill="#7c3aed">A</text>
+    <text x="835" y="240" text-anchor="middle" font-size="14" fill="#7c3aed">B</text>
+    <text x="930" y="335" text-anchor="middle" font-size="14" fill="#7c3aed">C</text>
+    <text x="760" y="395" text-anchor="middle" font-size="14" fill="#7c3aed">D</text>
+    <text x="805" y="438" text-anchor="middle" font-size="12" fill="#52606d">优点：发散和协商；风险：上下文不可见、协调成本高</text>
+  </g>
+</svg>
