@@ -1,10 +1,10 @@
 # Humanize Agent 发展史：群聊引用链接索引
 
-> 这是时间序语料初筛版中实际保留下来的链接目录，不等于已完成事实核查。关键资料的发布日期、内容与证据等级见[一手资料核查](../research/Agent发展史_一手资料核查.md)。
+> 这是录音/OCR 高召回语料中可可靠解析的链接目录，不等于已完成事实核查。关键资料的发布日期、内容与证据等级见[一手资料核查](../research/00_Agent发展史_一手资料核查.md)。疑似 OCR 截断项已从主索引移除，源语料仍保留原行号。
 
-- 链接出现次数：268
-- 去重后 URL：184
-- 疑似 OCR 截断：39
+- 链接出现次数：229
+- 去重后 URL：153
+- 已排除疑似 OCR 截断：39
 - 排序：沿用原聊天记录顺序；日期相同也不擅自按时钟重排。
 
 ## 3 月
@@ -13,8 +13,6 @@
 
 - [github.com/tmux/tmux/releases/tag/3.6a](https://github.com/tmux/tmux/releases/tag/3.6a) — [原文 L104](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:104)
   - 邻近语境：我反正换成 tmux =
-- `https://github.com/tmux-plugins/tmux-resurrect之前用的这个` **（疑似 OCR 截断）** — [原文 L111](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:111)
-  - 邻近语境：@十进. 以前是不是提到过 tmux 自动保存的
 - [github.com/zhaochenyang20/Awesome-ML-SYS-Tutorial/blob/main/torch…](https://github.com/zhaochenyang20/Awesome-ML-SYS-Tutorial/blob/main/torch/cuda-graph/) — [原文 L222](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:222)
   - 邻近语境：readme-2.md
 - [github.com/zhaochenyang20/Awesome-ML-SYS-Tutorial/blob/main/.lear…](https://github.com/zhaochenyang20/Awesome-ML-SYS-Tutorial/blob/main/.learn/readme.md) — [原文 L225](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:225)
@@ -66,15 +64,11 @@
   - 邻近语境：github:
 - [agentoptimizer.github.io/agentopt](https://agentoptimizer.github.io/agentopt/) — [原文 L3165](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:3165)
   - 邻近语境：optimizer-not-just-a-model/
-- `https://agentoptimizer.github.io/agentopt/blog/2026/03/22/why-your-agent-needs-a-model-combo-` **（疑似 OCR 截断）** — [原文 L3166](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:3166)
-  - 邻近语境：optimizer-not-just-a-model/
 
 ### 3月29日
 
 - [github.com/humania-org/humanize/pull/51](https://github.com/humania-org/humanize/pull/51) — [原文 L3360](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:3360)
   - 邻近语境：这个dev pr我上了个loop,查到没有问题直接把我周线的7%查没了
-- `https://github.com/ace-agent/ace他最近在SWE场景上有些industry` **（疑似 OCR 截断）** — [原文 L3366](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:3366)
-  - 邻近语境：我朋友之前写了个paper做这个， deployment
 - [github.com/humania-org/humanize/pull/51](https://github.com/humania-org/humanize/pull/51) — [原文 L3421](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:3421)
   - 邻近语境：是的呀，这一整个PR都是全自动解决的，我当时在吃饭
 
@@ -94,32 +88,18 @@
 
 ### 4月1日
 
-- `https://github.com/humania-org/humanize/blob/dev/prompt-template/claude/methodology-analysis-` **（疑似 OCR 截断）** — [原文 L4859](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:4859)
-  - 邻近语境：prompt.md
 - [github.com/humania-org/humanize/issues/53](https://github.com/humania-org/humanize/issues/53) — [原文 L4861](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:4861)
   - 邻近语境：你用这个模版筛一下你的issue
 
 ### 4月2日
 
-- `https://gith` **（疑似 OCR 截断）** — [原文 L5484](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:5484)
-  - 邻近语境：gemini前端应该最强
 - [github.com/zevorn/humanize/tree](https://github.com/zevorn/humanize/tree/) — [原文 L5495](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:5495)
   - 邻近语境：feat/viz-dashboard
-
-### 4月3日
-
-- `https://github.com/amphoreus-ai/codex-eternal-recurrence不过运行久了agent可能会` **（疑似 OCR 截断）** — [原文 L6010](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:6010)
-  - 邻近语境：挺简单的，我做了个
 
 ### 4月4日
 
 - [github.com/humania-org/humanize/issues/65](https://github.com/humania-org/humanize/issues/65) — [原文 L6255](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:6255)
   - 邻近语境：他人有没有碰到
-
-### 4月15日（第 2 段）
-
-- `https://zhuanlan.zhihu.com/p/2026354265170397100我试了gpt-` **（疑似 OCR 截断）** — [原文 L8595](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:8595)
-  - 邻近语境：感觉没那么难?AVO到底怎么做的我不知道。
 
 ### 4月16日
 
@@ -137,13 +117,9 @@
 
 - [github.com/gyy0592/claude-config/blob/main/set_claude.sh](https://github.com/gyy0592/claude-config/blob/main/set_claude.sh) — [原文 L11330](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:11330)
   - 邻近语境：大概做法就是 system prompt append一句话让他要去记录文档文档规则再写到别的一些地方让他每次记录的时候读
-- `https://github.com/gyy0592/claude-` **（疑似 OCR 截断）** — [原文 L11342](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:11342)
-  - 邻近语境：B4RRy:
 
 ### 4月20日
 
-- `https://github.com/Yeachan-Heo/oh-my-claudecode群主研究过这个吗，可以混合编排` **（疑似 OCR 截断）** — [原文 L11487](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:11487)
-  - 邻近语境：claude/codex/
 - [github.com/PolyArch/humanize/pull/98](https://github.com/PolyArch/humanize/pull/98) — [原文 L11531](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:11531)
   - 邻近语境：你们要是想试试，可以看泽文佬的PR
 - [github.com/PolyArch/humanize/blob/main/tests/run-all-tests.sh](https://github.com/PolyArch/humanize/blob/main/tests/run-all-tests.sh) — [原文 L11586](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:11586)
@@ -238,8 +214,6 @@
   - 邻近语境：5.16晚上6点，humanize线下大学习！
 - [calendar.app.google/dTbkFSwqqXD9pVcP8](https://calendar.app.google/dTbkFSwqqXD9pVcP8) — [原文 L20142](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:20142)
   - 邻近语境：你们线下组织humanize青年大学习不带我属实非常夸张了
-- `https://github.com/PolyArch/humanize/pull/141给gen-idea加了—个后续explore-idea,会给每个idea开` **（疑似 OCR 截断）** — [原文 L20461](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:20461)
-  - 邻近语境：收到
 - [github.com/PolyArch/humanize/pull](https://github.com/PolyArch/humanize/pull/) — [原文 L20463](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:20463)
   - 邻近语境：159
 - [github.com/PolyArch/humanize](https://github.com/PolyArch/humanize/) — [原文 L20478](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:20478)
@@ -255,15 +229,8 @@
 - [github.com/PolyArch/humanize/tree/h2-dev](https://github.com/PolyArch/humanize/tree/h2-dev) — [原文 L22099](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:22099)
   - 邻近语境：h2我 push了。Again，它只是一个first step Proof-of-Concept:如果你的期望是“我希望用它来增加我做其他项
 
-### 5月26日
-
-- `https://github.com/SihaoLiu/Lzvm我正在` **（疑似 OCR 截断）** — [原文 L26379](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:26379)
-  - 邻近语境：欣赏神迹
-
 ### 5月27日
 
-- `https://github.com/ogulcancelik/herdr是用钩子做的` **（疑似 OCR 截断）** — [原文 L27543](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:27543)
-  - 邻近语境：大道朝天，好用的设计大家都会发现
 - [www.youtube.com/watch](https://www.youtube.com/watch?v=XNtkiQJ49Ps) — [原文 L27604](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:27604)
   - 邻近语境：我觉得这个视频里面的设计特别好
 - [github.com/PolyArch/humanize](https://github.com/PolyArch/humanize) — [原文 L27689](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:27689)
@@ -321,18 +288,8 @@
 
 - [asciinema.org/a/VFuGoKIWSwcBFpo4](https://asciinema.org/a/VFuGoKIWSwcBFpo4) — [原文 L29702](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:29702)
   - 邻近语境：你还可以看看这个，描述医疗业务场景的，慢是因content都得用
-- `https://github.com/tao3k/pi-wendao，都是durable` **（疑似 OCR 截断）** — [原文 L29720](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:29720)
-  - 邻近语境：workflow的特性
-- `https://github.com/tao3k/xiuxian-artisan-workshop这是主仓` **（疑似 OCR 截断）** — [原文 L29721](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:29721)
-  - 邻近语境：0:26
-- `https://camunda.com/也在寻求agent` **（疑似 OCR 截断）** — [原文 L29764](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:29764)
-  - 邻近语境：我看你似乎理解又偏差，BPMN是工业街的workflow，且被验证多年 AI转
 - [camunda.com](https://camunda.com/) — [原文 L29775](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:29775)
   - 邻近语境：的workflow，且被验证多年...
-- `https://github.com/tao3k/xiuxian-` **（疑似 OCR 截断）** — [原文 L29781](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:29781)
-  - 邻近语境：GuangTao:
-- `https://zhuanlan.zhihu.com/p/2040070769791787736这个我比较赞同` **（疑似 OCR 截断）** — [原文 L30150](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:30150)
-  - 邻近语境：Reiko: 我有一个模糊的感觉，未来 human-agent-
 
 ### 5月30日（第 2 段）
 
@@ -345,18 +302,12 @@
   - 邻近语境：https://github.com/tao3k/qianji-flowhub/
 - [github.com/tao3k/qianji-flowhub](https://github.com/tao3k/qianji-flowhub/) — [原文 L31200](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:31200)
   - 邻近语境：https://github.com/tao3k/wendao-episteme/tree/main/sources
-- `https://github.com/gem5/gem5/pull/2969，这就是一个例证，这是5个月前的humanize` **（疑似 OCR 截断）** — [原文 L31210](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:31210)
-  - 邻近语境：关于什么是*例证*，，
 - [github.com/tao3k/orgiz](https://github.com/tao3k/orgiz) — [原文 L31220](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:31220)
   - 邻近语境：目前找到了最优解...
 - [github.com](https://github.com/) — [原文 L31224](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:31224)
   - 邻近语境：刘思皓:关于什么是*例证*，
 - [blog.csdn.net/fyfugoyfa/article/details/161168128](https://blog.csdn.net/fyfugoyfa/article/details/161168128) — [原文 L31312](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:31312)
   - 邻近语境：社区有个我不认识的哥们写了个AI软文，其中cover了一些GAAC时代的问题，里面包含了这个问题，可以参考一下
-- `https://multi-agent.wiki/我要说白了` **（疑似 OCR 截断）** — [原文 L31317](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:31317)
-  - 邻近语境：这个好用吗
-- `https://multi-agent.wiki/我要说白了` **（疑似 OCR 截断）** — [原文 L31322](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:31322)
-  - 邻近语境：福尔高斯:
 - [docs.google.com/document/d/1Vi2thlhowMYVN4HG6KOHVQDlzrDtnIE0](https://docs.google.com/document/d/1Vi2thlhowMYVN4HG6KOHVQDlzrDtnIE0) — [原文 L31329](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:31329)
   - 邻近语境：首先要思考的是multi agent的目的是什么
 - [docs.google.com/document/d](https://docs.google.com/document/d/) — [原文 L31333](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:31333)
@@ -365,8 +316,6 @@
   - 邻近语境：以及我感觉这样分类是不是有点重复
 - [multi-agent.wiki/patterns/market-auction-contract-net](https://multi-agent.wiki/patterns/market-auction-contract-net) — [原文 L31346](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:31346)
   - 邻近语境：以及我感觉这样分类是不是有点重复
-- `https://multi-agent.wiki/我要说白了` **（疑似 OCR 截断）** — [原文 L31350](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:31350)
-  - 邻近语境：福尔高斯:
 - [github.com/PolyArch/humanize](https://github.com/PolyArch/humanize) — [原文 L31353](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:31353)
   - 邻近语境：- 想要发布招聘信息请直接联系群主。
 - [github.com/SihaoLiu/ai-usage](https://github.com/SihaoLiu/ai-usage) — [原文 L31354](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:31354)
@@ -391,8 +340,6 @@
   - 邻近语境：你这个编排原语是你自己想的还是哪里炼化的？
 - [multi-agent.wiki/workflows/orchestration-primitives](https://multi-agent.wiki/workflows/orchestration-primitives) — [原文 L31421](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:31421)
   - 邻近语境：后面会统计一下不同的产品和类型丢进去做一个双向连接
-- `https://ralphworkflow.com/这块前期我推进你阅读一下实现，值得你学习` **（疑似 OCR 截断）** — [原文 L31481](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:31481)
-  - 邻近语境：福尔高斯：很好的建议我明天研究一下能不能调整
 
 ## 6 月
 
@@ -411,10 +358,6 @@
 
 - [github.com/PolyArch/oh-my-humanize](https://github.com/PolyArch/oh-my-humanize) — [原文 L32248](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:32248)
   - 邻近语境：我盲猜一手，这个feature会在3-6周内出现在cc/cx的mainline里面
-- `https://github.com/PolyArch/oh-my-` **（疑似 OCR 截断）** — [原文 L32255](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:32255)
-  - 邻近语境：humanize---拿omp搭了一个我心中的h3，核心设...
-- `https://github.com/PolyArch/oh-my-` **（疑似 OCR 截断）** — [原文 L32305](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:32305)
-  - 邻近语境：humanize ---拿omp搭了一个我心中的h3，核心设...
 - [github.com/zevorn/oh-my-qemu](https://github.com/zevorn/oh-my-qemu) — [原文 L32620](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:32620)
   - 邻近语境：repo:
 - [github.com/zevorn/qemu/tree/chao](https://github.com/zevorn/qemu/tree/chao) — [原文 L32621](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:32621)
@@ -482,15 +425,8 @@
   - 邻近语境：[Codex changelog - 26.602, 2026-06-04]()
 - [developers.openai.com/codex/changelog](https://developers.openai.com/codex/changelog) — [原文 L37081](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:37081)
   - 邻近语境：[Codex changelog - 26.601, 2026-06-01]()
-- `https://github.com/ninehills/blog/issues/162这套也还不错，仅供参考` **（疑似 OCR 截断）** — [原文 L38271](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:38271)
-  - 邻近语境：Reiko:不错
 - [alignment.anthropic.com/2026/automated-w2s-researcher](https://alignment.anthropic.com/2026/automated-w2s-researcher/) — [原文 L38374](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:38374)
   - 邻近语境：这个老文章的这种自组织multi-agent的范式有人尝试过吗？求分享一下感受
-
-### 6月11日
-
-- `https://www.icagenthub.com/我让他帮我改进这个flow` **（疑似 OCR 截断）** — [原文 L39251](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:39251)
-  - 邻近语境：@奇迹的闪光迪迦
 
 ### 6月12日
 
@@ -522,8 +458,6 @@
 
 - [lingtai.ai/wen/blog/glm52-awakens](https://lingtai.ai/wen/blog/glm52-awakens/) — [原文 L42126](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:42126)
   - 邻近语境：减台公约：不只是一段prompt
-- `https://www.databricks.com/blog/introducing-omnigent-meta-harness-combine-` **（疑似 OCR 截断）** — [原文 L42272](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:42272)
-  - 邻近语境：dynamic workflow?
 - [www.anthropic.com/engineering/harness-design-long-running-apps](https://www.anthropic.com/engineering/harness-design-long-running-apps) — [原文 L42301](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:42301)
   - 邻近语境：probably most people here know already but anthropic has some very good docs on loop engineering imo
 - [trace.databend.cloud](https://trace.databend.cloud/#comparisons/run-3) — [原文 L42416](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:42416)
@@ -535,8 +469,6 @@
 
 - [github.com/PolyArch/oh-my-humanize](https://github.com/PolyArch/oh-my-humanize) — [原文 L42470](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:42470)
   - 邻近语境：一直是开源的
-- `https://github.com/PolyArch/oh-my-` **（疑似 OCR 截断）** — [原文 L42479](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:42479)
-  - 邻近语境：humanize
 - [platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting…](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5) — [原文 L42522](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:42522)
   - 邻近语境：i mean this
 - [platform.claude.com/docs/en](https://platform.claude.com/docs/en/) — [原文 L42533](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:42533)
@@ -559,10 +491,6 @@
   - 邻近语境：这是readme
 - [github.com/PolyArch/oh-my-humanize/blob/main/docs/workflows.md](https://github.com/PolyArch/oh-my-humanize/blob/main/docs/workflows.md) — [原文 L42898](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:42898)
   - 邻近语境：认真学习
-- `https://github.com/PolyArch/oh-my-` **（疑似 OCR 截断）** — [原文 L42916](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:42916)
-  - 邻近语境：humanize
-- `https://github.com/PolyArch/oh-my-` **（疑似 OCR 截断）** — [原文 L43000](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:43000)
-  - 邻近语境：humanize/blob/main/docs/workflows.md
 - [github.com/PolyArch/oh-my-humanize/blob/main/docs/workflows.md](https://github.com/PolyArch/oh-my-humanize/blob/main/docs/workflows.md) — [原文 L43371](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:43371)
   - 邻近语境：already cloned to my disk :D
 
@@ -573,14 +501,10 @@
 
 ### 6月17日
 
-- `https://github.com/PolyArch/oh-my-` **（疑似 OCR 截断）** — [原文 L44094](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:44094)
-  - 邻近语境：Horace:
 - [github.com/PolyArch/oh-my-humanize](https://github.com/PolyArch/oh-my-humanize) — [原文 L44150](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:44150)
   - 邻近语境：isee
 - [github.com/PolyArch/oh-my-humanize](https://github.com/PolyArch/oh-my-humanize/) — [原文 L44151](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:44151)
   - 邻近语境：thx
-- `https://github.com/PolyArch/humanize/issues/213我发现你上次问了一次，我上次还回复了一次` **（疑似 OCR 截断）** — [原文 L44717](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:44717)
-  - 邻近语境：Horace: cc 监控 codex goal 的 session 咋实现的呢
 - [github.com/SihaoLiu/skills](https://github.com/SihaoLiu/skills) — [原文 L44739](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:44739)
   - 邻近语境：Horace: cc 监控 codex goal 的 session 咋实现的呢
 - [github.com/SihaoLiu/skills/tree/main/monitor-codex-goal](https://github.com/SihaoLiu/skills/tree/main/monitor-codex-goal) — [原文 L44742](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:44742)
@@ -677,14 +601,10 @@
 
 - [yage.ai/share/agent-code-cleanliness-context-hygiene-20260709.…](https://yage.ai/share/agent-code-cleanliness-context-hygiene-20260709.html) — [原文 L52177](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:52177)
   - 邻近语境：代码黎洁度影晴 coding agent的
-- `https://yage.ai/share/agent-code-` **（疑似 OCR 截断）** — [原文 L52183](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:52183)
-  - 邻近语境：L.Zhu:
 - [openai.com/index/gpt-5-6](https://openai.com/index/gpt-5-6/) — [原文 L52252](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:52252)
   - 邻近语境：没那估计挺多的
 - [github.com/ARA-Labs/Agent-Native-Research-Artifact](https://github.com/ARA-Labs/Agent-Native-Research-Artifact) — [原文 L52434](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:52434)
   - 邻近语境：3个goal 5.6 sol 睡了
-- `https://github.com/anthropics/claude-plugins-official/blob/main/plugins/code-simplifier/agents/code-` **（疑似 OCR 截断）** — [原文 L52899](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:52899)
-  - 邻近语境：simplifier.md，追求奥卡姆剃刀的原则，看一下当前代码库里面哪一些属于不必要或者过早限制能力的测试限制，以
 
 ### 7月11日
 
@@ -729,20 +649,12 @@
   - 邻近语境：ask-{claude, codex, kimi, glm}
 - [github.com](https://github.com/) — [原文 L62917](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:62917)
   - 邻近语境：这边炼化了omh最核心的部分做了一个h2的最简实现，群友有兴趣的话可以试试看呀：
-- `https://git` **（疑似 OCR 截断）** — [原文 L62925](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:62925)
-  - 邻近语境：简实现，群友有兴趣的话可以试试看呀：...
-- `https://git` **（疑似 OCR 截断）** — [原文 L62929](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:62929)
-  - 邻近语境：简实现，群友有兴趣的话可以试试看呀：...
 - [github.com/SihaoLiu/skills/tree](https://github.com/SihaoLiu/skills/tree/) — [原文 L62979](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:62979)
   - 邻近语境：main/ask
 - [www.reddit.com/r/eink/comments/1twtj82/ssh_terminal_on_remarkable_pap…](https://www.reddit.com/r/eink/comments/1twtj82/ssh_terminal_on_remarkable_paper_pro_yay_or_nay/) — [原文 L63104](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:63104)
   - 邻近语境：terminal一直往上刷不会很难受吗
 - [www.reddit.com/r/eink/comments](https://www.reddit.com/r/eink/comments/) — [原文 L63115](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:63115)
   - 邻近语境：1twtj82/ssh_terminal_on_remarkable_paper_pro_..
-- `https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models看起来非常合理` **（疑似 OCR 截断）** — [原文 L63202](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:63202)
-  - 邻近语境：我感觉我很久以前就不怎么写乱七八糟的指示了
-- `https://claude.com/blog/the-new-rules-of-` **（疑似 OCR 截断）** — [原文 L63204](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:63204)
-  - 邻近语境：Reiko:
 - [status.openai.com](https://status.openai.com/) — [原文 L63257](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:63257)
   - 邻近语境：因为确实炸了
 
@@ -771,5 +683,3 @@
 
 - [github.com/tastynoob/Agent-Flow-Language](https://github.com/tastynoob/Agent-Flow-Language) — [原文 L68606](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:68606)
   - 邻近语境：欢迎大家前来试用
-- `https://github.com/tastynoob/Agent-` **（疑似 OCR 截断）** — [原文 L68612](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:68612)
-  - 邻近语境：Lurker:

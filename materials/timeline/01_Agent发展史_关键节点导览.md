@@ -31,7 +31,7 @@
 | 2026-02-05 | Anthropic 发布 [Opus 4.6](https://www.anthropic.com/news/claude-opus-4-6)、Agent Teams 与 [并行构建 C 编译器](https://www.anthropic.com/engineering/building-c-compiler) 实验 | 解释 3 月一开场就出现的 Agent Teams、并行与协调成本争论 |
 | 2026-02-11 | OpenAI 发布 [Harness Engineering](https://openai.com/index/harness-engineering/) | 解释 3 月群内为何迅速把 Harness 与控制、机械规则和仓库约束联系起来 |
 
-详细的来源日期、证据等级和疑点见[一手资料核查](../research/Agent发展史_一手资料核查.md)。
+详细的来源日期、证据等级和疑点见[一手资料核查](../research/00_Agent发展史_一手资料核查.md)。
 
 ## 前史｜来自后期聊天的回顾
 
@@ -129,9 +129,11 @@
 
 - 有参与者说“cx 全面接盘”“重回古法”；模型切换不再只是选 Builder，而开始改变整个计划、执行与 Review 结构。[原文 L18790](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:18790)
 
-- h2 的困难从“能否起更多 Agent”转向“人是否还能理解超过 15 个 Agent 构建的代码库”。讨论由 Observability、Human in the Loop 推进到 Human Harness。[原文 L19090](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:19090) [原文 L19472](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:19472)
+- h2 的困难从“能否起更多 Agent”转向“人是否还能理解超过 15 个 Agent 构建的代码库”。讨论由“保证人类知情”、Observability、Human in the Loop 推进到 Human Harness；`Human Awareness Cognitive Load` 是本书的回顾性标签，不是当时已经确定的正式术语。[原文 L18913](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:18913) [原文 L19090](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:19090)
 
-- HAD（Human Aided Design）提出把人的有限带宽放在 Flow 挑选出的关键确认点上。[原文 L20651](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:20651)
+- “抽样层级考试”把检查分成记忆、自检和教育，并要求在 Plan 逐层生成时确认理解。5 月 13 日创建的 [Coach Mode PR #159](https://github.com/PolyArch/humanize/pull/159)到 6 月 13 日才合入；要分开记录概念出现与代码落地。[原文 L19874](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:19874) [原文 L20401](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:20401)
+
+- HAD（Human Aided Design）提出把人的有限带宽放在 Flow 挑选出的关键确认点上，并用“带着人类往前跑”概括 Human Harness。[原文 L20651](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:20651)
 
 ### 5 月 16—21 日：h1 / h2 / h3 被明确区分
 
@@ -142,6 +144,8 @@
 - 同期有人完成从 Claude 到 Codex 的主力迁移，并继续把 Codex Review 视为难替代能力。这里是个人工作流转向，不代表社区全体同步迁移。[原文 L24737](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:24737)
 
 ### 5 月下旬：以产物为中心、动态 Flow 与“被产品内化”
+
+- 5 月 22 日，群里开始推荐 [Oh My Pi](https://github.com/can1357/oh-my-pi)；5 月 28 日，H2 作者明确提出在 OMP 上重建 H2。`OmniPi` 是误记，HTML H2 POC 与后来的 OMP 路线也要分开。[原文 L25004](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:25004) [原文 L27882](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:27882)
 
 - h2 的对话中心设计开始被批评，Artifact-centered 逐渐成为新的组织方向。[原文 L25994](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:25994)
 
@@ -157,27 +161,41 @@
 
 ### 6 月 2—7 日：h3 / oh-my-humanize 与 Monitor
 
-- h3 被实现为 `oh-my-humanize` 的早期形态，核心增量是允许 Agent 修改正在运行的工作流，但修改权、触发方式和人类审批仍在实验。[原文 L32220](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:32220)
+- h3 被实现为 `oh-my-humanize` 的早期形态，核心增量是允许 Agent 修改正在运行的工作流，但修改权、触发方式和人类审批仍在实验。仓库于 6 月 1 日 UTC（北京时间 6 月 2 日）加入 Workflow Runtime，[随后数小时的提交](https://github.com/PolyArch/oh-my-humanize/commit/fccda309629d02ee033f06819a2554d8b6a8ca22)已经支持实时 Graph Revision。[原文 L32220](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:32220)
 
-- 长程 `/goal` 任务催生“Claude 监控 Codex”的第三方 Monitor：定期读 Transcript，识别长时间跑偏，再决定是否注入纠偏。[原文 L34690](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:34690) [原文 L35444](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:35444)
+- 长程 `/goal` 任务催生“Claude 监控 Codex”的第三方 Monitor。典型组合是 Codex `/goal` 执行，Claude Code `/loop` 每小时读取代码库与完整 Transcript，识别低效深挖、死胡同和事实问题；发现异常后，通过 Remote Control 通知 Human，获批后再用 tmux 注入 Steer Prompt。[原文 L34718](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:34718) [原文 L35444](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:35444)
 
-### 6 月 9—10 日：动态主义、错题本失败与 Pi
+### 6 月 8—10 日：Monitor Loop、动态主义、错题本失败与 Pi
+
+- 6 月 8 日，作者自报已在手机上运行十个监控 Loop，并为既有原则设置少量 Auto-inject 白名单；6 月 10 日，群聊直接使用 `Monitor Loop` 这一名称，把 Human 放在有限的关键 Check Point 上。[原文 L36338](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:36338) [原文 L37862](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:37862)
 
 - 动态主义与组合主义被作为两条路线讨论：是让 Agent 在巨大 Flow 空间中动态选择，还是组合少量已经验证的 Flow。[原文 L36555](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:36555)
 
 - 优化 Flow 的“错题本”实验被删除，因为失败记录会把仍有潜力的邻近方向一起剪掉。Evidence Score、Decay Rate 和记忆的路径依赖进入讨论。[原文 L37904](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:37904)
 
-- 群友重新注意到 OpenClaw 背后的 Pi：OpenClaw 本体未必适合 Coding，但极简 Agent Core 被认为可能更适合让用户自己搭 Coding Harness。[原文 L38240](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:38240)
+- 群友重新注意到 OpenClaw 背后的 Pi：OpenClaw 本体未必适合 Coding，但极简 Agent Core 被认为可能更适合让用户自己搭 Coding Harness。群聊中的“龙虾”指 OpenClaw，不指 Humanize。[原文 L38240](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:38240)
 
-### 6 月 13—18 日：Humanize 3 被写成 Flow Factory，官方动态工作流出现
+### 6 月 13—18 日：Humanize 3 进入公开试用，Flow 验证成为瓶颈
 
-- Humanize 3 被描述为 Agent-mutable Dynamic Workflow；围绕 FlowBench、Flow Factory、Flow 修改门控和 Flow-aware Inference 的讨论密集出现。[原文 L40620](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:40620) [原文 L44115](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:44115)
+- Humanize 3 被描述为 Agent-mutable Dynamic Workflow；[6 月 12 日的提交](https://github.com/PolyArch/oh-my-humanize/commit/eea3778e2e5ba7fa38f90eae6da4d9d9461a1474)集中落地 Mutable Runtime。围绕 FlowBench、Flow Factory、Flow 修改门控和 Flow-aware Inference 的讨论密集出现。[原文 L40620](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:40620) [原文 L44115](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:44115)
+
+- 这套实现随即发生工程回摆。[6 月 13 日的提交](https://github.com/PolyArch/oh-my-humanize/commit/eb78a8eacc905434dd340f01a0f1ea8fa5d90276)拒绝向 Active Run 直接提交 Graph Patch；生产 Attempt 后来绑定 Immutable Freeze，改 Flow 需经过停止、Checkpoint、审批、重新冻结与重启。H3 的“动态”由 Live Mutation 收紧为受控演化。
 
 - 群里给出一组相对正式的 1.0 / 2.0 / 3.0 描述：单一硬编码 RLCR Flow；构建 Flow 的 IR；让 Flow 生成 Flow 的平台。[原文 L43776](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:43776)
 
-- Claude Code 发布 Dynamic Workflows 后，群里一方面认为方向得到产品印证，另一方面也反思 h2-dev 使用 HTML/专用语法是否过度设计，转向 YAML AST 与 JS/TS 等更直接的表达。[原文 L45700](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:45700)
+- 6 月 15 日，`oh-my-humanize` 公开邀请社区试用，短暂内置九种 Flow，包括 H1 RLCR 与 KDA；发现一两个 Bug 后整批回滚，未充分验证的 Built-in 于 6 月 16 日被降级。作者随后提出先在本地连续验证 80 小时再升格。[原文 L42888](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:42888) [原文 L45897](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:45897)
 
-### 6 月 20—25 日：项目重组、Humanize 1.0 被“炼化”、Monitor 边界
+- [KDA](https://github.com/mit-han-lab/kernel-design-agents)把 Humanize Plan/RLCR 用到 CUDA Kernel 优化；[公开复现仓库](https://github.com/mit-han-lab/mlsys2026-flashinfer-contest)记录了 MLSys 2026 Competition NVIDIA Track 的第 1、2、3 名。公开归属是 MIT HAN Lab，不能据赛道名写成 NVIDIA 官方内部系统。
+
+- 群聊把长程任务中漏掉隐含条件的问题称为 `cognition overload`，再次接上 5 月的“保证人类知情”与 Human Harness 讨论。[原文 L45831](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:45831)
+
+- 6 月 17 日公开的 [`monitor-codex-goal` Skill](https://github.com/SihaoLiu/skills/tree/ec9cd9e2733f28d93bbf66c37ef58722cf6390ce/monitor-codex-goal)把 Monitor Loop 固化为只读审计、手机通知、人工审批和受控注入；次日，社区又用它监控 Flow Test Case 的执行路径。[首次提交](https://github.com/SihaoLiu/skills/commit/ec9cd9e) [原文 L45971](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:45971)
+
+- 回看 Claude Code Dynamic Workflows 后，群里反思 h2-dev 使用 HTML/专用语法是否过度设计，转向 YAML AST 与 JS/TS 等更直接的表达。[原文 L43811](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:43811)
+
+- [GLM-5.2](https://z.ai/blog/glm-5.2)于 6 月 16 日正式发布，强调 1M Context、长程 Agentic Work、Flexible Effort 与开放权重；群里 6 月 13—14 日已出现提前传播和实测，评价同时包含“自然使用 Workflow”与速度慢、容量紧、幻觉。[原文 L41848](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:41848)
+
+### 6 月 20—26 日：项目重组、Humanize 1.0 被“炼化”、GPT-5.6 预览
 
 - 群公告集中列出当时的 `oh-my-humanize`、Humanize 1.0、Multi-Agent Wiki、Slides 和社区文章，可视为阶段性的项目资料快照。[原文 L46720](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:46720)
 
@@ -187,15 +205,17 @@
 
 - Monitor 被重新限定：多 Flow、长任务可能有价值，一两个短任务未必需要；主动监控与被动观察也不等价。[原文 L48765](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:48765)
 
+- 6 月 26 日，OpenAI 开启 [GPT-5.6 限量预览](https://openai.com/index/previewing-gpt-5-6-sol/)，发布 Sol、Terra、Luna，并用 `max` 表达更深单 Agent 推理、用 `ultra` 调度 Subagent。群聊随即转向 Token Efficiency 与长程 Reward Hacking。[原文 L48962](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:48962)
+
 ## 7 月与记录末段｜自动子 Agent、国产模型、轻 Harness 与多人协作
 
-### 7 月 2—10 日：Codex 成为主力，Sandbox 与自动子 Agent
+### 7 月 2—10 日：Codex 成为主力，GPT-5.6 GA 与自动子 Agent
 
 - 有参与者明确建议连续使用 Codex + GPT 三周，并回顾自己曾在 4 月大量使用 Claude。这代表一条个人迁移轨迹，也呼应了 5 月以来对 Codex `/goal` 与 Review 的持续评价。[原文 L49830](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:49830)
 
 - 超长程任务把隔离从 Worktree 推向可 Snapshot 的 Sandbox、容器、SSH、VNC 与 Computer Use；目标是隔离进程状态和外部副作用，并允许从快照重新分叉。[原文 L51128](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:51128)
 
-- GPT-5.6 / Codex 的自动 Sub-agent 能力引发密集试用。10、70、101 个子 Agent 的个人报告与递归、预算、生命周期和 UI 问题同时出现。[原文 L52166](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:52166) [原文 L53933](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:53933)
+- GPT-5.6 于 [7 月 9 日全面发布](https://openai.com/index/gpt-5-6/)，其自动 Sub-agent 能力引发密集试用。10、70、101 个子 Agent 是群友的个人报告，并非官方承诺的固定规模；递归、预算、生命周期和 UI 问题同时出现。[原文 L52166](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:52166) [原文 L53933](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:53933)
 
 - 群里再次提出“模型已经把 Builder—Reviewer、任务追踪和主动分解炼化进去”。外部 Humanize 因而转向实验控制、多人协作和高风险边界。[原文 L53013](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:53013)
 
@@ -203,25 +223,35 @@
 
 - Pi 被描述为 OpenClaw 的 Agent Core，也是一个非常精简的 Harness；支持者认为模型越强，Pi 的优势越明显。[原文 L54420](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:54420)
 
-- Kimi K3 发布前后，群内快速把它放进长程 Build、Codex Review 和不同订阅/API 成本中试用。有人开始考虑把未来开发配比向国产模型倾斜，但保留 Codex 的 Review 角色。[原文 L57440](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:57440) [原文 L58670](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:58670)
+- Kimi K3 于 [7 月 16 日发布](https://www.kimi.com/code/docs/en/kimi-code/whats-new.html)，完整权重在 7 月 27 日开放。群内快速把它放进长程 Build、Codex Review 和不同订阅/API 成本中试用，并提出 `K3 Build + Sol Review`；对 K3、Sol、Fable 的排序始终有分歧。[原文 L56900](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:56900) [原文 L57440](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:57440)
 
 - 另一条路线建立 Arch / PM / Audit 三个窄职责主 Session，每个再带多个子 Agent；角色之间通过会议记录、执行轨迹和缺陷文件交接。[原文 L58269](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:58269)
 
 - 7 月 20 日的长段回顾把个人迁移轨迹写得最清楚：Claude/Opus 的早期领先，GPT-5.2 长程能力的转折，Codex `/goal` 与 Review 的接管，以及 Kimi K3 带来的新一轮迁移意愿。[原文 L59770](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:59770)
 
-### 7 月 25—28 日：Opus 5、Context Engineering、Bare Pi 与 MHMA
+### 7 月 24—29 日：H1 回归、Context Engineering、Bare Pi 与 MHMA
+
+- 7 月 24 日，一次 Sol 长程重构经历五次 Context Compaction、产生六千多行改动后，重新采用了人类已经否决的设计。社区随即建议接回 Monitor / RLCR，并留下“说好的不需要 Harness 的时代呢”这句反问。它是一次个案，说明自动规划出现以后，持久约束和独立验证仍有用武之地。[原文 L62193](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:62193) [原文 L62245](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:62245)
 
 - Opus 5 和面向 Claude 5 的 Context Engineering 资料进入群聊，模型/Harness 的边界再次变化；同一时期也出现 Skill Dropout，防止过多规则把 Agent 锁死在旧路径上。[原文 L62566](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:62566) [原文 L59908](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:59908)
 
-- 7 月 28 日的实践转向 Bare Pi、极短 System Prompt、Bash 与 Sub-agent，并讨论多人多 Agent（MHMA）的文件/脚本交接。这里不是简单回到 One-shot，而是把复杂编排更多交给强模型现场生成。[原文 L64473](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:64473) [原文 L64926](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:64926)
+- 7 月 26 日，群友报告 `ultra` 在多次压缩后丢失深层 Subagent 生命周期和职责状态，阶段性停止并与人对齐被称作 `human as memory`。[原文 L63768](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:63768)
+
+- 7 月 28—29 日的实践转向 Bare Pi、极短 System Prompt、Bash 与 Sub-agent，并讨论多人多 Agent（MHMA）的文件/脚本交接。这里把复杂编排更多交给强模型现场生成，同时继续保留工具面与交接方式的外部设计。[原文 L64473](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:64473) [原文 L64926](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:64926) [原文 L65151](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:65151)
+
+- 同期讨论把人的瓶颈从代码输入推进到 Plan、认知同步和责任：模型构建能力继续提高，人与模型的交互带宽却没有同步增长；连续 `approve` 会累积难以维护的系统。[原文 L65288](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:65288) [原文 L65363](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:65363)
 
 ### 记录末段：基础设施追赶模型，简化成为能力
 
 - 数百个子 Agent 带来 UI、进程管理、递归深度和任务状态问题；模型派发能力开始超过现有基础设施的承载能力。[原文 L67657](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:67657)
 
+- 7 月 31 日，[DeepSeek-V4-Flash-0731](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/main/README.md)作为取代 Preview 的正式版本发布。官方 Code Agent 成绩使用尚未公开的 DeepSeek Harness Minimal Mode；群里也立即从模型排名转向 Harness、Reasoning Effort 和实际 CLI 组合。[原文 L67269](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:67269)
+
 - 动态主义与组合主义最终没有分出胜负：机械维护适合代码化 Flow，探索任务适合动态决策，自动平衡机制仍未知。[原文 L68085](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:68085)
 
 - Agent-Flow-Language 发布早期版本；同时，模型主动重写、删除和 Simplify 代码成为新的观察点。社群的关注从“怎样让 Agent 多做”又转向“怎样让 Agent 正确地少做”。[原文 L68605](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:68605) [原文 L68773](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:68773)
+
+- 最后一段标准化讨论指出，Agent 为完成 Goal 可能 Fork 通用依赖或定制全部零件，短期达标却抬高量产和维护成本。把稳定部分做成 Tool、表单与可校验接口，被概括成“不要写作文，要搞成填空题”。[原文 L68953](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:68953)
 
 ## 暂时可见的几条演进方向
 

@@ -19,7 +19,7 @@ DEFAULT_SOURCE = Path(
     "/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md"
 )
 DEFAULT_OUTPUT = Path(
-    "/Users/zevorn/humanize-book/materials/timeline/Agent发展史_时间序语料初筛.md"
+    "/Users/zevorn/humanize-book/materials/sources/01_录音与OCR/01_Agent发展史_时间序语料_高召回初筛.md"
 )
 
 # Sparse but historically important passages can be missed by density-based
@@ -291,13 +291,13 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--source", type=Path, default=DEFAULT_SOURCE)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
-    parser.add_argument("--before", type=int, default=8)
-    parser.add_argument("--after", type=int, default=10)
-    parser.add_argument("--bridge", type=int, default=10)
+    parser.add_argument("--before", type=int, default=1)
+    parser.add_argument("--after", type=int, default=2)
+    parser.add_argument("--bridge", type=int, default=2)
     parser.add_argument(
         "--min-seeds",
         type=int,
-        default=1,
+        default=4,
         help="Keep only merged spans containing at least this many relevant seed lines.",
     )
     parser.add_argument(
@@ -528,7 +528,7 @@ def render(
         "",
         "> 这是一份供后续人工分析使用的原始语料初筛，不是总结文章。",
         ">",
-        "> 配套阅读：[关键节点导览](Agent发展史_关键节点导览.md)；[一手资料核查](../research/Agent发展史_一手资料核查.md)；[群聊引用链接索引](../indexes/Agent发展史_群聊引用链接索引.md)。",
+        "> 配套阅读：[关键节点导览](../../timeline/01_Agent发展史_关键节点导览.md)；[一手资料核查](../../research/00_Agent发展史_一手资料核查.md)；[群聊引用链接索引](../../indexes/02_Agent发展史_群聊引用链接索引.md)。",
         ">",
         "> - 所有聊天正文均按原文件顺序保留，未改写、未纠正 OCR、未重排发言。",
         "> - 仅删除明显无关区段，以及群聊邀请/撤回提示、单字符 OCR 残片等高置信噪声。",

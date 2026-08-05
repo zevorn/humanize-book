@@ -20,7 +20,7 @@ from build_agent_timeline import (
 
 
 OUTPUT = Path(
-    "/Users/zevorn/humanize-book/materials/indexes/Agent发展史_群聊引用链接索引.md"
+    "/Users/zevorn/humanize-book/materials/indexes/02_Agent发展史_群聊引用链接索引.md"
 )
 URL_RE = re.compile(r"https?://[^\s<>]+", re.IGNORECASE)
 TRAILING = ".,;:!?，。；：！？、)]}）】>"
@@ -115,6 +115,9 @@ def main() -> None:
                     )
                 )
 
+    excluded_count = sum(record.possibly_truncated for record in records)
+    records = [record for record in records if not record.possibly_truncated]
+
     grouped: dict[tuple[str, int], list[LinkRecord]] = defaultdict(list)
     group_order: list[tuple[str, int]] = []
     for record in records:
@@ -124,15 +127,14 @@ def main() -> None:
         grouped[key].append(record)
 
     unique_urls = len({record.url for record in records})
-    truncated_count = sum(record.possibly_truncated for record in records)
     out = [
         "# Humanize Agent 发展史：群聊引用链接索引",
         "",
-        "> 这是时间序语料初筛版中实际保留下来的链接目录，不等于已完成事实核查。关键资料的发布日期、内容与证据等级见[一手资料核查](../research/Agent发展史_一手资料核查.md)。",
+        "> 这是录音/OCR 高召回语料中可可靠解析的链接目录，不等于已完成事实核查。关键资料的发布日期、内容与证据等级见[一手资料核查](../research/00_Agent发展史_一手资料核查.md)。疑似 OCR 截断项已从主索引移除，源语料仍保留原行号。",
         "",
         f"- 链接出现次数：{len(records):,}",
         f"- 去重后 URL：{unique_urls:,}",
-        f"- 疑似 OCR 截断：{truncated_count:,}",
+        f"- 已排除疑似 OCR 截断：{excluded_count:,}",
         "- 排序：沿用原聊天记录顺序；日期相同也不擅自按时钟重排。",
         "",
     ]
@@ -150,14 +152,9 @@ def main() -> None:
 
         for record in grouped[key]:
             source_link = f"{source}:{record.line}"
-            if record.possibly_truncated:
-                out.append(
-                    f"- `{record.url}` **（疑似 OCR 截断）** — [原文 L{record.line}]({source_link})"
-                )
-            else:
-                out.append(
-                    f"- [{domain_label(record.url)}]({record.url}) — [原文 L{record.line}]({source_link})"
-                )
+            out.append(
+                f"- [{domain_label(record.url)}]({record.url}) — [原文 L{record.line}]({source_link})"
+            )
             out.append(f"  - 邻近语境：{record.context}")
         out.append("")
 
