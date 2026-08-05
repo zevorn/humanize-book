@@ -11,3 +11,4 @@
 - [Dynamic Workflow 的三个层次](09_第三章_DynamicWorkflow三层.svg)
 - [Monitor Loop 长程任务监控](10_第三章_MonitorLoop.svg)
 - [Agent 协作效率概念曲线](11_第四章_Agent协作效率曲线.svg)：第四章使用的无量纲示意图，不代表实测 Benchmark。
+- [Arch、PM、Audit 与 Subagent 协作流程（2026-07-25）](12_第四章_ArchPM-Audit_Subagent协作_2026-07-25.png)：用户提供的流程图；图中“工作审计.md”等为图示标签，详见研究核查稿。

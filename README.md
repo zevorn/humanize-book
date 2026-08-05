@@ -434,6 +434,16 @@ Humanize 3 在这条线上留下的核心问题很朴素：当 Agent 已经能�
 
 7 月底还有一个很典型的实验：群友把 K3 放进 Bare Pi，只保留 Bash 与 Subagent，反而觉得效果更好、交互更省。大家开玩笑说“高级食材不需要高级烹饪”。这句话没有证明复杂 Harness 已经失效，它提醒我们另一件事：强模型可能更容易被过多工具、过长规则和频繁的中间往返拖住。删掉一个工具、缩短一段 Prompt、减少一个固定阶段，同样属于 Harness Engineering。
 
+### 把设计、执行和审查拆成三个主 Session
+
+7 月 18 日，群里先描述了一套很完整的角色化工作流。人类和 Arch 长时间讨论，把设计、决策和约束沉淀进“会议记录”；PM 只读取已经说清楚的切片，派往隔离的 Worktree，再负责汇总和合并；Audit 读取 PM 的 Session JSONL、代码变化和工作记录，找出被跳过或误判的部分，形成“会议缺陷”，再把问题带回人类和 Arch。每个主 Session 还可以带 3—10 个 Subagent，设计、实现和审查同时推进。
+
+7 月 25 日，用户提供的这张图把这套实践画成了更具体的模型路由：Arch 保留设计权威，PM + `/goal` 负责调度，Reviewer 和 K3 Worker 分别承担检查与 Build，Contractor 处理临时急活，底部的 PM + `/goal` 再把结果收回下一轮任务。群里同期的经验是让 GPT 做设计、协调和审查，把 Claude、Kimi 和 GLM 放到 Build；这套按角色分工的做法后来被称为 `graph engineering`。这里的图示标签比聊天原文更具体：图中写作“工作审计.md”，原文更接近“会议缺陷”；“PM 的小弟 reviewer”也是对多层 Subagent 的可视化称呼。
+
+![Arch、PM、Audit 与 Subagent 协作流程](materials/figures/12_第四章_ArchPM-Audit_Subagent协作_2026-07-25.png)
+
+*图 12：用户提供的 2026 年 7 月 25 日流程图。对应的 Arch—PM—Audit 角色分工最早完整记录于 7 月 18 日，7 月 25 日又在模型路由和 `graph engineering` 的讨论中得到确认。详细行号和证据边界见[相关一手资料核查](materials/research/05_七月25日_ArchPMAudit与Subagent实践_一手资料核查.md)。*
+
 7 月 31 日，[DeepSeek-V4-Flash-0731](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/main/README.md)发布，官方称它取代此前的 Preview，在 Agent 能力上有明显提升。其 Model Card 给出的 Terminal-Bench 2.1、DeepSWE 等成绩已经与当时最强的闭源模型进入同一张比较表，部分项目仍有差距，因此本书把它描述为“广泛接近、可以正面竞争”，不写成全面领先。
 
 这份 Model Card 还留下了一条比排名更重要的注释：Code Agent 项目使用了尚未公开的 **DeepSeek Harness minimal mode**，并开启 `max` 推理强度。一个主打模型能力的官方结果，依然依赖特定 Harness 才能成立。模型和 Harness 到这里已经很难拆开比较；我们测到的始终是模型、运行环境、工具、Prompt、预算和验证器组成的系统。
@@ -502,4 +512,43 @@ DeepSeek 的官方评测使用 Minimal Harness，也从另一个方向印证了�
 
 所以，这一章暂时停在一个开放的位置。模型会继续吸收今天的优秀 Flow，外部 Harness 也会继续删除已经被模型覆盖的结构；留下来的部分，大概率会更贴近垂直领域、组织责任和真实交付。每个开发者、每个团队都在形成自己的协作范式。Humanize 社区能够贡献的，也许正是把这些范式放回真实项目里反复实践，把成功与失败留下来，再让下一轮模型和工具继续把它们吃进去。
 
-> 本章的群聊行号、官方 Model Card 与产品能力边界，见[第四章一手资料核查](materials/research/04_第四章_Harness方法论与责任制_一手资料核查.md)和[第四章参考资料卡](materials/references/04_第四章/README.md)。
+> 本章的群聊行号、官方 Model Card 与产品能力边界，见[第四章一手资料核查](materials/research/04_第四章_Harness方法论与责任制_一手资料核查.md)、[7 月 25 日 Arch—PM—Audit 与 Token 记录](materials/research/05_七月25日_ArchPMAudit与Subagent实践_一手资料核查.md)和[第四章参考资料卡](materials/references/04_第四章/README.md)。
+
+## 附录 A｜Token 消耗的社区记录
+
+### 先说能不能从图里算出来
+
+这张流程图描述的是角色、模型档位和数据流，没有记录每个节点的输入 Token、输出 Token、缓存命中、调用次数、运行时长或账单金额。因此，Arch、PM、Audit、Contractor、Reviewer 和 K3 Worker 的消耗量无法从图中逐人还原，也不能把图里的节点数直接乘成总 Token。下面的数字来自群聊中的个人面板和口述，只能作为当时的观测样本。
+
+### 7 月 25 日的一张个人面板
+
+群里有人分享了自己写的 [`ai-usage`](https://github.com/SihaoLiu/ai-usage) 统计结果。原始 OCR 只留下了模型列表和两组占比：Claude 占 16% 的 Token、20% 的费用；Kimi 占 8% 的 Token、4% 的费用。GPT 占 40%、其余各家各占 20% 是当时对个人最终分布的预估，“总成本砍掉 50%”同样是预期，并非复盘结果。
+
+| 模型 | Token 占比 | 费用占比 | 口径 |
+| --- | ---: | ---: | --- |
+| Claude | 16% | 20% | 个人几日混合任务快照 |
+| Kimi | 8% | 4% | 个人几日混合任务快照 |
+| GPT | 预计 40% | 未给出 | 个人预估，不是已实现结果 |
+| 其他各家 | 预计各 20% | 未给出 | 个人预估，不是已实现结果 |
+
+把该面板的总 Token 和总费用都归一为 100，可以得到一个有限但有用的相对指标：Claude 的“费用占比 / Token 占比”为 `20 / 16 = 1.25`，Kimi 为 `4 / 8 = 0.50`。在这个人的任务组合和价格口径下，Kimi 的相对成本密度约为 Claude 的 40%，也就是 Claude 约为 Kimi 的 2.5 倍。这个计算不能替代官方单价，也不能外推到其他模型版本；它只说明为什么群里会把 Kimi 放在 Build，把 GPT 留在 Reviewer 和 Gatekeeper 位置。[原始记录 L62823-L62866](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:62823)
+
+### 按时间留下的可比性较低的样本
+
+| 时间 | 记录 | 可用的解释 |
+| --- | --- | --- |
+| 3 月 24 日 | 一位成员估算自己一个月的 API 等价费用超过 1 万美元，同时提到手里有两组 `$200` 订阅 | 订阅、反代和 API 口径混在一起，不能与后面的套餐消耗直接相加。[原文 L1520-L1545](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:1520) |
+| 5 月 17 日 | 一位成员说自己平均每天约 `1.2B` Token，做系统级实验还需要上千个数据点 | 这是个人研究预算感受，不是 Humanize 平均值。[原文 L22572-L22596](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:22572) |
+| 5 月 27 日 | 对话中出现 `5.7M/天`、`13.3M/周（20%）`，以及在一分钟测试回路下 `800M—1.3B/天` 的估计 | 说话人和条件在 OCR 中有粘连，后一个范围是条件推算，不能与前两项合并。[原文 L27541-L27575](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:27541) |
+| 6 月 18 日 | 一位成员记录 `codex:omh:claude = 71:16:13`，并预估之后会变成 `omh:codex:claude = 80:10:10` | 它反映的是一个人的模型入口分布；`omh` 在原文没有展开，不能强行当作统一产品名称。[原文 L45435-L45450](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:45435) |
+| 7 月 25 日 | 群里问“GPT 以外日均多少 B”，回答先后出现“1B 多一点”和“不到 2B” | OCR 把提问、回答和时间标签粘在一起，无法确认账户和统计窗口，只能保留为 B 级线索。[原文 L62930-L62940](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:62930) |
+
+### 套餐消耗更像压力测试记录
+
+7 月中下旬的几条口述能说明消耗速度，却不能组成同口径账单：有人说国内 `¥699` 套餐一天用了 25% 周额度、5% 月额度；有人用 K3 Swarm 一天烧完 `¥199`，另一个人说一个 36 分钟的 `/goal` 用掉了 3% 周额度；7 月 19 日还有一次错误的 Sol 长任务，三个小时烧掉 30% 的 Codex 周额度和 20% 的 Kimi 周额度。随后有人报告高强度 K3 用掉 `$100 + $200`，也有人估算 Kimi 每周要烧 `1.5 × $200`，7 月 24 日又出现“一小时用掉 10% Codex 额度”的记录。套餐档位、地区、模型、是否使用 Swarm、统计周期都不同，这些数字适合用来观察“错误路径会吞掉多少预算”，不适合做模型排名。[7 月 17—18 日原文 L58095-L58124](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:58095)；[7 月 19 日原文 L59329-L59330](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:59329)；[7 月 21—24 日原文 L60061-L60408](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:60061)
+
+从这些零散数据里，暂时能得到三点判断：
+
+- 图里的角色数量不等于 Token 预算。并行层级越多，输入上下文、同步和 Review 也会一起计费；Anthropic 对多 Agent 的公开估计是同任务约 3—10 倍 Token，但社群样本没有做同任务对照。
+- 便宜模型承担 Build、较贵模型承担设计和 Review，是当时最清楚的一条个人实践规律。它优化的是“可接受产出 / 成本”，不是单纯追求更低的 Token 数。
+- 一次错误路径可能比模型单价差异更快吞掉预算。后续若要做正式统计，至少应同时记录模型、角色、输入/输出/缓存 Token、费用、任务是否通过验收、返工轮次和人类介入时间；单看 Token 总量会把“烧得多但产出好”和“烧得多却走偏”混在一起。

@@ -15,4 +15,5 @@
 - [02｜Humanize 1.0 → 2.0](02_第二章_Humanize2_一手资料核查.md)
 - [03｜Human Harness → H3](03_第三章_HumanHarness与H3_一手资料核查.md)
 - [04｜Harness 方法论与责任制](04_第四章_Harness方法论与责任制_一手资料核查.md)
+- [05｜Arch—PM—Audit、Subagent 与 Token 记录](05_七月25日_ArchPMAudit与Subagent实践_一手资料核查.md)
 - [99｜参考资料整理审计](99_参考资料整理审计_一手资料.md)
