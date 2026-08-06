@@ -377,9 +377,7 @@ Coach Mode 仅作为可选项。它展示了一种具体做法，还没有成为
 
 ### Coach Mode 的工具箱：先把代码库变成可学习对象
 
-Coach Mode 解决了一个具体问题：Agent 往前走时，人怎样跟得上。后来我发现，
-单靠几轮提问还不够，提问需要有材料，材料也要能够留下来。GitHub 上有一批
-关注度很高的 Skill，可作为参考：
+Coach Mode 解决了一个具体问题：Agent 往前跑时，人类怎样跟得上。后来我发现，单靠几轮提问还不够，提问需要有材料，材料也要能够留下来。GitHub 上有一批关注度很高的 Skill，可作为参考：
 
 - **Understand Anything**：把文件、函数、类、依赖和业务域组织成可探索的
   知识图，提供 Guided Tours、语义搜索、Diff Impact 和 Onboarding。第一次
@@ -396,21 +394,10 @@ Coach Mode 解决了一个具体问题：Agent 往前走时，人怎样跟得上
   [`grill-me`](https://github.com/mattpocock/skills/tree/main/skills/productivity/grill-me) ·
   [`grill-with-docs`](https://github.com/mattpocock/skills/tree/main/skills/engineering/grill-with-docs) ·
   [`improve-codebase-architecture`](https://github.com/mattpocock/skills/blob/main/skills/engineering/improve-codebase-architecture/SKILL.md)
-- **GitDiagram**：把仓库树和 README 变成可点击的架构图，并支持导出
-  Mermaid 或 PNG。它适合放在提问之前，让人先指出模块、依赖和自己不理解的
-  连接。[GitHub](https://github.com/ahmedkhaleel2004/gitdiagram)
-- **Repomix**：将经过忽略规则筛选的仓库打包成 AI 可读的代码库快照，并显示
-  Token 数量。它适合准备一次有边界的上下文，把阅读范围和成本摆在桌面上；
-  快照本身仍然只是材料，不能替代理解检查。
-  [GitHub](https://github.com/yamadashy/repomix)
-- **DeepWiki-Open**：自动生成文档、图和 codemap，适合作为异步 onboarding
-  材料。仓库 README 已说明维护重心正在转向 AsyncReview，所以我把它放在
-  参考样本里，使用前要先确认活跃度。
-  [GitHub](https://github.com/AsyncFuncAI/deepwiki-open)
-- **codebase-memory-mcp**：用 Tree-sitter 和 LSP 建立本地、可查询的代码关系
-  图，并通过 MCP 暴露给 Agent。调用链、类层次、Diff Impact、死代码和意外
-  依赖都可以成为 Coach Mode 的提问对象，适合需要更强结构分析的仓库。
-  [GitHub](https://github.com/DeusData/codebase-memory-mcp)
+- **GitDiagram**：把仓库树和 README 变成可点击的架构图，并支持导出Mermaid 或 PNG。它适合放在提问之前，让人先指出模块、依赖和自己不理解的连接。[GitHub](https://github.com/ahmedkhaleel2004/gitdiagram)
+- **Repomix**：将经过忽略规则筛选的仓库打包成 AI 可读的代码库快照，并显示 Token 数量。它适合准备一次有边界的上下文，把阅读范围和成本摆在桌面上；快照本身仍然只是材料，不能替代理解检查。[GitHub](https://github.com/yamadashy/repomix)
+- **DeepWiki-Open**：自动生成文档、图和 codemap，适合作为异步 onboarding 材料。仓库 README 已说明维护重心正在转向 AsyncReview，所以我把它放在参考样本里，使用前要先确认活跃度。[GitHub](https://github.com/AsyncFuncAI/deepwiki-open)
+- **codebase-memory-mcp**：用 Tree-sitter 和 LSP 建立本地、可查询的代码关系图，并通过 MCP 暴露给 Agent。调用链、类层次、Diff Impact、死代码和意外依赖都可以成为 Coach Mode 的提问对象，适合需要更强结构分析的仓库。[GitHub](https://github.com/DeusData/codebase-memory-mcp)
 
 我会把这些实践接成一条很朴素的 Coach Flow：
 
@@ -452,9 +439,9 @@ Coach Mode 解决了一个具体问题：Agent 往前走时，人怎样跟得上
 
 ### 从 HTML PoC 转向 Oh My Pi
 
-这条路线中还有一个很容易写错的项目名。群里使用的是 **Oh My Pi**，缩写 **OMP**。
-
 [Pi](https://github.com/earendil-works/pi) 是 Mario Zechner 开发的轻量 Agent Toolkit，提供模型调用、Agent Loop、工具和终端交互等基础部件。[Oh My Pi](https://github.com/can1357/oh-my-pi) 在 Pi 上继续扩展 Coding Harness。5 月 22 日，我在群里强烈推荐大家试试 OMP。到了 5 月 28 日，思皓的反应非常直接：`omp is soooooo good`，接着说 `I need to build h2 on omp`。
+
+> 小巧思：omp 的 gate 可以把注册的模型 API Key 反代给其他应用。
 
 他此前花了很多时间给 H2 对接模型供应商、CLI 和运行设施。OMP 已经把这些地基搭好，Humanize 可以把精力放回 Flow 本身。这里的实现顺序要讲清楚：5 月 17 日的 H2 PoC 先采用了 TypeScript、HTML Runtime 和 MCP Hub；它当时没有“接入 OmniPi”。OMP 路线随后出现，H2/H3 的相关能力从 6 月开始在 `oh-my-humanize` 中重新实现。
 
