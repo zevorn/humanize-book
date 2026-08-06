@@ -22,7 +22,7 @@ Humanize 1.0 首先回答的是：怎样让一个反馈循环真正跑起来？�
 
 截至 2026 年 8 月，[Humanize](https://github.com/PolyArch/humanize) 在 GitHub 上约有 1.4k Star。与许多更受关注的 Agent Harness 相比，它的规模并不算大，但我仍然认为它被低估了。沿着社群内部所说的 1.0、2.0、3.0 三个阶段去理解它——从一个能工作的 Loop，到表达和运行 Flow 的系统，再到由 Agent 参与构造与修改 Flow——未必能得到一套唯一正确的答案，却能看到 Agent Harness 最核心的一组问题是怎样被逐步提出、试错和重写的。
 
-我希望读完这本小册子后，大家记住的不只是几个流行概念，而是能看见模型、工具与开发者之间的关系如何一步步变化。当你开始设计自己的 Agent 时，能够更清楚地判断为什么需要 Loop、什么时候需要独立 Review、自治的边界应该放在哪里，以及为什么一个足够简单的 Harness 有时反而更可靠。如果这本记录能带来这些具体的启发，它的目的就达到了。
+读完这本小册子，希望读者可以收获：能看见模型、工具与开发者之间的关系如何一步步变化的；当你开始设计自己的 Agent 时，能够更清楚地判断为什么需要 Loop、什么时候需要独立 Review、自治的边界应该放在哪里，以及为什么一个足够简单的 Harness 有时反而更可靠。
 
 > PS: 全文使用 Typeless 口述转文字，由 ChatGPT Codex 5.6 Soul Max 整理润色，所以整体是比较偏口语化和轻松诙谐的节奏。
 
@@ -34,9 +34,9 @@ Humanize 1.0 首先回答的是：怎样让一个反馈循环真正跑起来？�
 
 ### 一把为自己磨的镰刀
 
-Humanize 最初并不是一项按照产品路线图规划出来的 Agent Harness。作者刘思皓博士后来在群里回忆，它只是为了方便自己写代码而做的一个小工具，也是服务于加速器研究的 side project；更早的设计目标，甚至只是把一份 spec 翻译成 Agent 能够执行的计划。它的出发点并不宏大。
+Humanize 最初并不是一项按照产品路线图规划出来的 Agent Harness。作者刘思皓博士（下文简称思皓）后来在群里回忆，它只是为了方便自己写代码而做的一个小工具，也是服务于加速器研究的 side project；更早的设计目标，甚至只是把一份 spec 翻译成 Agent 能够执行的计划。它的出发点并不宏大。
 
-公开代码留下了一条更具体的演变路线。Humanize 1.0 的前身是 [GAAC（GitHub-as-a-Context）](https://github.com/SihaoLiu/gaac)，它曾尝试用 GitHub Issues、PR、Projects 和复杂的 Agent 交互来保存长程上下文。刘思皓后来回忆，GAAC 一度包含超过 60 个 Agent 的交互；经过实际失败，他把这些复杂结构大幅删去，只留下最有用的一条主线：Ralph Loop 加独立 Codex Review，再配上 Goal Tracker 与停滞熔断。2026 年 1 月 12 日提交的 [Humanize v1.0.0](https://github.com/PolyArch/humanize/commit/888451dbe0baf71b006f03961b7eb06939c100bf)，已经完整表达了这套骨架。
+公开代码留下了一条更具体的演变路线。Humanize 1.0 的前身是 [GAAC（GitHub-as-a-Context）](https://github.com/SihaoLiu/gaac)，它曾尝试用 GitHub Issues、PR、Projects 和复杂的 Agent 交互来保存长程上下文。思皓后来回忆，GAAC 一度包含超过 60 个 Agent 的交互；经过实际失败，他把这些复杂结构大幅删去，只留下最有用的一条主线：Ralph Loop 加独立 Codex Review，再配上 Goal Tracker 与停滞熔断。2026 年 1 月 12 日提交的 [Humanize v1.0.0](https://github.com/PolyArch/humanize/commit/888451dbe0baf71b006f03961b7eb06939c100bf)，已经完整表达了这套骨架。
 
 ![Humanize 1.0 RLCR 反馈循环](https://raw.githubusercontent.com/PolyArch/humanize/main/docs/images/rlcr-workflow.svg)
 
@@ -44,7 +44,10 @@ Humanize 最初并不是一项按照产品路线图规划出来的 Agent Harness
 
 群里后来反复提到的一个早期用例，是对 gem5 构建系统的重构。[gem5 PR #2969](https://github.com/gem5/gem5/pull/2969) 尝试用 CMake + Ninja 替换长期使用的 SCons，同时加入一套可并行存在的 Bazel 构建系统。这个改造涉及五百多个文件，还要保留 ISA Parser、SLICC、SimObject 代码生成等既有链路，并验证两套构建系统得到一致的对象集合。它不是一个为了展示 Agent 而刻意设计的小样例，而是一个有历史包袱、有兼容要求、也要接受上游审查的真实工程问题。
 
-如果用一个朴素的比喻来概括，Humanize 就像一把意外磨得很锋利的镰刀。最初只是因为眼前有一片麦子，想把它割得快一点，于是开始磨刀；等刀磨好以后，大家才发现，它处理的不只是一种麦子，也不只适用于一个项目。一个为个人研究服务的小工具，由此逐渐显露出 Agent Harness 的通用价值。
+同时，群公告里收录的[《Humanize：一个 Prompt 重构 gem5 的构建系统》](https://zhuanlan.zhihu.com/p/2011939681307206316)
+把这次迁移写成了更容易理解的实践故事。
+
+所以，如果用一个朴素的比喻来概括，Humanize 就像一把意外磨得很锋利的镰刀。最初只是因为眼前有一片麦子，想把它割得快一点，于是开始磨刀；等刀磨好以后，大家才发现，它处理的不只是一种麦子，也不只适用于一个项目。一个为个人研究服务的小工具，由此逐渐显露出 Agent Harness 的通用价值。
 
 ### Humanize 之前：模型开始进入真实工程
 
@@ -92,6 +95,14 @@ OpenAI 在 2 月发布的[《Harness engineering: leveraging Codex in an agent-f
 
 这场讨论的重要性，不在于提前判定 Subagents 一定战胜 Agent Teams，而在于社区开始把 Agent 数量和协作拓扑分开看。开很多 Agent 并不自动构成好的 Agent Team；通信是否可见、任务边界是否独立、结果能否被外部验证，往往比数量更重要。
 
+[Multi-Agent Wiki](https://multi-agent.wiki/) 也把这组问题整理
+成了一套工程检查：谁在某个时刻拥有控制权，Agent 之间怎样隔离 Context，冲突结果
+怎样合并，任务如何取消、重试和追踪，计划什么时候应该落到代码，以及哪些动作
+必须经过 Human-in-the-loop。它的价值不在于给出唯一架构，而在于让 Subagent、
+Handoff、Parallel、Pipeline、Debate 和 Blackboard 等模式都带着适用条件和失败
+方式进入讨论。社区后来谈“多 Agent”时，实际上已经从数量比较走向了控制结构和
+恢复语义的比较。
+
 ![Subagent 与 Agent Teams 协作拓扑](materials/figures/03_第一章_Agent协作拓扑.svg)
 
 *图 3：Subagent 更强调隔离和集中汇总，Agent Teams / Swarm 更强调直接通信与探索。*
@@ -116,13 +127,48 @@ Humanize 进入快速实践期后，大家很快遇到一个现实问题：怎�
 
 这些 Issue 不是用来证明 Humanize 已经成熟，恰恰相反，它们保留了 Humanize 在真实工程中失败的方式。在 Agent Benchmark 尚不成熟的阶段，这可能是优化 Harness 性价比最高的办法之一：不把失败留在某个用户的本地日志里，而是将其脱敏、抽象成可讨论、可实现、可回归检查的工程问题。社区成员既是使用者，也成为了 Harness 的分布式测试者。
 
+### Judgement Engineering：把判断放回流程
+
+4 月的 Humanize 内部分享把这段实践概括成 **From Agentic Flow to Judgement
+Engineering**。它提出了一个很朴素的变化：开发的单位从一次 completion 变成
+一个 loop；执行越来越便宜以后，真正稀缺的工作转向判断。目标是否可测，证据
+是否足够，什么时候继续、暂停、改计划或重新开始，这些决定会直接放大或限制
+Agent 的执行速度。[Humanize 1.0 内部 Slides](https://drive.google.com/file/d/1bvQl_IE1JyXqW6NkSMFPrs_G0erAdgca/view?usp=sharing)
+把这条判断写成了一整套设计检查。
+
+这份 Slides 也回看了 GAAC 为什么没有沿着“模拟一支完整工程团队”的方向继续
+扩张。角色越多，交接越多；每次摘要都会丢掉一部分上下文，目标也可能在下一个
+角色手里被重新解释。Humanize 最后留下了最小的判断循环：人作为 Architect
+确定意图，Builder 负责实现，Reviewer 对完成度和正确性施加独立压力。它删掉
+了大量组织外壳，保留能让判断变得更清楚的部分。
+
+这里面有几条对正文很有帮助的工程原则：
+
+- **Plan 是 Loop 的宪法**：先写 Goal、Non-goals、可观察的 Acceptance、
+  Constraints、Milestones 和 Risks，再允许第一轮执行；计划接受以后保持只读，
+  中途修改要留下 Amendment Record。
+- **Review 是判断边界**：Builder 的结构化 Summary 是实现阶段交给 Reviewer
+  的接口，Reviewer 再结合 Diff、Plan 和验收证据判断 Goal Alignment、回归风险
+  与真实进度。
+- **机械检查先替人做**：Delta Card 可以先比较声明改动与磁盘 Diff、测试与
+  Benchmark 是否真的运行，再把更少、更干净的问题交给 Reviewer。
+- **失败要留下方法学痕迹**：BitLesson 记录跨轮次的教训，Selector 只挑当前
+  任务需要的记忆；Review 反复失败以后，应该沉淀成新的 Gate、Issue 或测试，
+  而不是继续靠人临时提醒。
+
+这些原则解释了为什么 Humanize 的价值常常落在“判断在哪里发生”上。后来的
+社区文章把同一套结构放进 kernel、SGLang、gem5 和长程重构等不同任务里：
+目标由人类设定，Builder 持续推进，独立 Review 和领域 Benchmark 负责把结果拉回
+可验证的范围。文章本身属于项目经验记录，具体成绩仍应回到仓库、PR 和测试
+结果核对；它们提供的是实践证据，不是通用模型排名。
+
 ### 当方法被模型吃进权重
 
 3 月 24 日，Anthropic 发布了 Prithvi Rajasekaran 撰写的[《Harness design for long-running application development》](https://www.anthropic.com/engineering/harness-design-long-running-apps)。文章使用 Planner、Generator 和 Evaluator 构成的三 Agent 架构，把主观设计标准转化为可评分的指标，并让完整 Harness 最长运行 6 小时。它和 Humanize 都强调独立评价、文件交接与反馈循环，但群里的即时反应却相当冷淡：早期大家几乎会逐篇研究 Anthropic Blog，到这篇文章时，不少人觉得其中可获得的新知识已经变少，甚至认为社区的真实运行时间和问题复杂度已经走得更远。
 
 这不意味着文章没有价值。相反，它在后半部分写出了一个后来反复出现的矛盾：每一个 Harness 组件，都隐含着“当前模型还做不到什么”的假设；模型更新以后，原本必要的 Sprint、上下文重置或 Review，可能变成额外负担，因此应该重新检查并删除已经不再承重的部分。
 
-社区里后来形成了一个很有意思的判断标准。刘思皓曾把它概括为：判断一个 Harness 特性是不是真的有用，可以看下一轮模型会不会把它 built-in。有效的方法会先被写进 Prompt，随后沉淀为 Skill 或 Harness；一旦足够通用、足够高频，它又可能通过后训练或下一轮模型迭代，直接进入模型能力。到那时，外部脚手架就要继续变薄，或者把边界推向模型尚未覆盖的新问题。
+社区里后来形成了一个很有意思的判断标准。思皓曾把它概括为：判断一个 Harness 特性是不是真的有用，可以看下一轮模型会不会把它 built-in。有效的方法会先被写进 Prompt，随后沉淀为 Skill 或 Harness；一旦足够通用、足够高频，它又可能通过后训练或下一轮模型迭代，直接进入模型能力。到那时，外部脚手架就要继续变薄，或者把边界推向模型尚未覆盖的新问题。
 
 从这个角度看，闭源实验室相对开源社区的领先并不是一个固定距离。模型公司可以更早看到新模型、拥有更多训练资源，但社区拥有数量更大、变化更快的真实工程现场。随着有效方法不断被公开、复现和内化，单篇官方 Blog 所能带来的前瞻性会出现边际递减；而真实使用中暴露的失败、Issue 和反例，反而可能成为更稀缺的知识。
 
@@ -156,7 +202,7 @@ Humanize 1.0 从一小群人的工具走向更多真实项目后，让大家惊�
 
 4 月 14 日，我们真的沿着 PID 的类比改了一版 Humanize。[PR #81](https://github.com/PolyArch/humanize/pull/81) 把累计 Commit 和最近三轮 Summary、Review 一起提供给 Reviewer。对应提交把 Goal Tracker 与 Acceptance Criteria 的差值看作 P，把历史轨迹看作 I，把当前 Round 的变化看作 D。到 6 月复盘时，大家又给 P、I、D 重新分配过角色，甚至认为 Humanize 缺少的 D 恰好对应 `/goal` 的 Progressive Planning。这个映射一直在变，所以我更愿意把 PID 看成社区理解问题的一种工程语言。它帮我们看见震荡、积分记忆、阻尼和收敛速度，也没有把一个概率系统假装成精确的控制器。
 
-长尾也说明了 Humanize 1.0 的适用边界。目标清楚、Plan 足够完整、验收条件可以写出来时，RLCR 很强；它会忠实地把自然语言 Plan 翻译成代码，再用独立 Review 把结果慢慢压到目标附近。探索型任务、快速小改和途中需要频繁改方向的任务，会让这套固定结构显得很重。到了 5 月 21 日，刘思皓给出的日常做法已经很朴素：当 Reviewer 剩下的全是 P2，就由人直接终止。控制系统最后仍然需要一个知道什么时候值得停下的人。
+长尾也说明了 Humanize 1.0 的适用边界。目标清楚、Plan 足够完整、验收条件可以写出来时，RLCR 很强；它会忠实地把自然语言 Plan 翻译成代码，再用独立 Review 把结果慢慢压到目标附近。探索型任务、快速小改和途中需要频繁改方向的任务，会让这套固定结构显得很重。到了 5 月 21 日，思皓给出的日常做法已经很朴素：当 Reviewer 剩下的全是 P2，就由人直接终止。控制系统最后仍然需要一个知道什么时候值得停下的人。
 
 ### 1.17：给固定 RLCR 画一个句号
 
@@ -214,9 +260,36 @@ Model 和 Tool 只解释了 Agent 能理解什么、能调用什么。Action 与
 
 群里当时使用的原词是 `hvm` 或 VM/Runtime，“Agent VM”是本书为了阅读方便采用的简称。这个 VM 没有性能压力，一条“指令”可能运行几分钟甚至几个小时；它更像一台 Flow 执行和监控机，负责把状态交给下一节点，记录发生过什么，并在边界上执行权限和检查。
 
-群里对这套构想始终有质疑。有人直接问：已有编程语言加 Agent SDK 已经能做编排，为什么还要造 DSL？刘思皓当时的回答很克制，Workflow-as-PL 首先是一套思维模型，实现时完全可以使用现成语言。这句话让讨论降了一点温。H2 从起点就背着一个问题：我们究竟需要一门新语言，还是只需要把少数可靠的 Flow 原语整理出来？
+群里对这套构想始终有质疑。有人直接问：已有编程语言加 Agent SDK 已经能做编排，为什么还要造 DSL？思皓当时的回答很克制，Workflow-as-PL 首先是一套思维模型，实现时完全可以使用现成语言。这句话让讨论降了一点温。H2 从起点就背着一个问题：我们究竟需要一门新语言，还是只需要把少数可靠的 Flow 原语整理出来？
 
 事实上，[5 月 17 日进入 `h2-dev` 的 PoC](https://github.com/PolyArch/humanize/commit/3fccb60c11332fb322a295db0583432416c7cf07) 已经换了一种形态：TypeScript、MCP Server Hub、HTML Workflow Runtime、Dashboard，以及把 RLCR、gen-idea、gen-plan 等能力重新表达成 Workflow Cartridges；最初真正接通的 Agent Backend 只有 Codex 和 Claude。它和最初聊到的 Rust、MLIR 方言与小型 VM 有很大差别。作者在公开分支时也反复提醒，这个版本用于开发一个更合理的 Agentic Flow Platform，普通项目继续使用 H1；仓库把它标成 Transitional Branch，包版本也只有 `0.1.0`。H2 当时是一份 First-step Proof of Concept。
+
+### H2 的技术底稿：Flow 成为可观察的数据
+
+5 月的 H2 技术说明把这个 PoC 讲得比“Flow IR”更具体：H2 是一层位于 H1
+之下的 Flow Runtime，和 1.0 并行存在。一个 Flow 被装进单个 HTML Cartridge，
+里面同时声明 Manifest、能力权限、Typed State、Prompt Template、执行图和
+可绑定的 View；运行时可以读取它、校验它、展示它，也可以在不改 Runtime 的情况
+下替换它。[Humanize 2 技术说明 Slides](https://drive.google.com/file/d/1j-Xxtwf5GQ5PYcJ8Glnd6XOKNuizUNbl/view?usp=sharing)
+把这套结构画得很清楚。
+
+几个实现细节值得留在正文里：
+
+- **Artifact 与 Board 分开**：Artifact 是带 Schema 的不可变结果，Board 是可以
+  Patch 的共享状态；前者适合留证据，后者适合推进状态和协作。
+- **Trigger-driven Dataflow**：节点等待输入到达后再触发，通过 `await`、分支、
+  Loop 和嵌套组合执行，Flow 不再只是脚本里写死的调用顺序。
+- **Flow 与 Backend 解耦**：同一张图里的不同 Agent 节点可以替换 Claude、Codex
+  或其他后端，模型更换不会迫使整套流程重写。
+- **观察面随 Flow 一起交付**：本地 Hub 展示 Session Tree、时间线、Live Board
+  和运行中的 View，人在这里看到的是状态和证据，Agent 仍然负责执行。
+
+H2 的三个案例也很有代表性：RLCR 被重新写成 Cartridge，`gen-idea` 用六个
+并行 Explorer 做 Fan-out，实验性的 Team Intervention 则让 Captain 在运行中
+通过 `agent_spawn_child` 和 `agent_send_message` 改变 Worker 的后续任务。它们
+说明多 Agent 的难点逐渐从“能不能并发”转成“并发关系能不能被写出来、观察到、
+暂停和复盘”。这正是 H2 为 H3 留下的底座：Agent 将来可以自己生成、部署和
+修订 Flow，但每一次改变仍然有可检查的 Artifact、Board 和运行轨迹。
 
 我很喜欢这段不整齐的历史。大家先想换模型，接着讨论 IR、类型、编译器和 VM，最后落下来的 PoC 又采用了另一套基础设施。概念与实现互相试探，任何一版都还谈不上最终答案。H2 真正完成的转向，是让 Flow 本身第一次成为开发对象：人可以构造它、运行它、检查它，也可以拿不同模型与工具去替换其中的节点。
 
@@ -254,21 +327,25 @@ Model 和 Tool 只解释了 Agent 能理解什么、能调用什么。Action 与
 
 ## 第三章｜让人跟上 Agent
 
-第二章把故事停在 Flow 的程序化和厂商的 Dynamic Workflows。要理解 H3 为什么会出现，时间还得往回拨一点。H2 的 PoC 尚未公开时，一个更让人不安的问题已经先冒了出来。
+上一章把故事停在 Flow 的程序化和厂商的 Dynamic Workflows。要理解 H3 为什么会出现，时间还得往回拨一点。H2 的 PoC 尚未公开时，一个更让人不安的问题已经先冒了出来。
 
-5 月 9 日，群里有人谈起自己的真实感受：把代码库完全交给 AI，最后很难对它负责；每一步都跟下来，心智压力又大得受不了。刘思皓当时正在做 H2，也遇到了同样的两难。他把问题写得很直接：一套超过 H1 十倍规模的系统，怎样保证人类知情？如果有一天 AI 工具全部失效，造出这个系统的人还能不能手动修掉一个 Bug？
+5 月 9 日，群里有人谈起自己的真实感受：把代码库完全交给 AI，最后很难对它负责；每一步都跟下来，心智压力又大得受不了。思皓当时正在做 H2，也遇到了同样的两难。他把问题写得很直接：一套超过 H1 十倍规模的系统，怎样保证人类知情？如果有一天 AI 工具全部失效，造出这个系统的人还能不能手动修掉一个 Bug？
 
-这几句话后来成了 H2 和 H3 之间一条很重要的暗线。Agent 可以持续运行，也可以继续增加并发，人的理解速度却没有随 Token 一起增长。生产力涨到一百倍，人类的掌控度很可能停在原地。
+这几句话后来成了 H2 和 H3 之间一条很重要的暗线。Agent 可以持续运行，也可以继续增加并发，人类的理解速度却没有随 Token 一起增长。生产力涨到一百倍，人类的掌控度很可能停在原地（这种感觉，非常容易让人焦虑）。
 
 ### 人类先掉出了循环
 
-回看这段群聊，我愿意把它称为 **Human Awareness 与 Cognitive Load 问题**。这里需要保留一点史料上的克制：`Human Awareness Cognitive Load` 并没有作为完整术语出现在当时的对话里。5 月的原话是“保证人类知情”和“人类掌控度”；到了 6 月 18 日，群里又在长程任务的讨论中说，这“其实还是一个 `cognition overload` 的问题”。两组表达前后呼应，本书将它们合在一起，作为方便回顾的标签。
+回看这段群聊记录，我愿意把它称为 **Human Awareness 与 Cognitive Load 问题**。这里需要保留一点史料上的克制：`Human Awareness Cognitive Load` 并没有作为完整术语出现在当时的对话里。5 月的原话是“保证人类知情”和“人类掌控度”；到了 6 月 18 日，群里又在长程任务的讨论中说，这“其实还是一个 `cognition overload` 的问题”。两组表达前后呼应，本书将它们合在一起，作为方便回顾的标签。
 
-H1 的反馈主要朝向产出。Builder 写代码，Reviewer 查错，测试和 Goal Tracker 提供状态，下一轮据此修正。人虽然留在系统外面，却可以把一个相对清楚的目标交给 Loop，最后回来验收。Agent 数量变多、任务周期拉长以后，这套关系开始松动。系统内部每天产生大量设计决定、分支、实验和失败，最终结果即使通过了测试，人也可能已经说不清它为什么长成这样。
+H1 的反馈主要朝向产出。Builder 负责写代码，Reviewer 则负责查错，测试和 Goal Tracker 来提供状态，然后下一轮据此修正。人虽然留在系统外面，却可以把一个相对清楚的目标交给 Loop，最后回来验收。Agent 数量变多、任务周期拉长以后，这套关系开始松动。系统内部每天产生大量设计决定、分支、实验和失败，最终结果即使通过了测试，人也可能已经说不清它为什么长成这样。
 
 于是，Review 的对象需要扩大。代码有没有完成仍然要查，Flow 还要照顾使用者的认知状态：当前走到了哪里，哪些决定已经发生，哪些风险仍然存在，接下来的人类判断会影响哪一条路径。Agent 在这里多了一项很少被写进 Benchmark 的工作——把自己的推进过程压缩成人能跟上的节奏。
 
-这个问题和 Observability 有关，却比“把日志展示出来”更麻烦。完整 Trace 只会把机器的 Context 压力转移成人类的阅读压力。群里当时甚至把边界设得很极端：假设全世界的 AI 明天都消失，留下来的工程师还应当有能力继续维护这个系统。这个假设未必真的发生，却能逼着我们判断哪些知识必须留在人脑和工程产物里，哪些细节可以放心交给自动化。
+我觉得这个问题很关键，和 Observability 有关，却比“把日志展示出来”更麻烦。
+
+完整 Trace 只会把机器的 Context 压力转移成人类的阅读压力。群里当时甚至把边界设得很极端：假设全世界的 AI 明天都消失，留下来的工程师还应当有能力继续维护这个系统。这个假设未必真的发生，却能逼着我们判断哪些知识必须留在人脑和工程产物里，哪些细节可以放心交给自动化。
+
+现在回头来思考，我觉得越靠近基础设施的软件层级，越要减少 Agent 直接生成关键代码的比例，越要增加人类手动 Review 的比例。
 
 ### Human Harness：带着人类往前跑
 
@@ -278,9 +355,9 @@ H1 的反馈主要朝向产出。Builder 写代码，Reviewer 查错，测试和
 
 同一天，群里出现了两句话：
 
-> agent harness 让 AI 更强大；human harness 让人类更负责。
+> Agent Harness 让 AI 更强大；Human Harness 让人类更负责。
 
-“Human Harness”这个名字由此出现。它的方向很有 Humanize 的味道：Harness 继续约束 Agent，也开始安排人类怎样介入、在什么地方介入，以及介入前需要知道什么。刘思皓后来用了一个更形象的说法——“带着人类往前跑”。群里还把这种关系从 CAD 延伸成 HAD，也就是从 Computer Aided Design 走向 Human Aided Design：Agent 组织生产过程，人把有限的脑力留给 Flow 精心挑出的确认点。
+“Human Harness”这个名字由此出现。它的方向很有 Humanize 的味道：Harness 继续约束 Agent，也开始安排人类怎样介入、在什么地方介入，以及介入前需要知道什么。思皓后来用了一个更形象的说法——“带着人类往前跑”。群里还把这种关系从 CAD 延伸成 HAD，也就是从 Computer Aided Design 走向 Human Aided Design：Agent 组织生产过程，人把有限的脑力留给 Flow 精心挑出的确认点。
 
 当时设计了三类检查：
 
@@ -294,13 +371,64 @@ H1 的反馈主要朝向产出。Builder 写代码，Reviewer 查错，测试和
 
 ![Human Harness 与 Coach Mode](materials/figures/07_第三章_HumanHarness_CoachMode.svg)
 
-*图 7：Coach Mode 把人类理解检查放进 Plan 展开的过程，而不是只在最后弹出确认框。*
+*图 7：Coach Mode 把人类理解检查放进 Plan 展开的过程，避免只在最后弹出确认框。*
 
-这段实现史值得把两个时间点分开记。5 月 13 日出现的是 idea 和 PR，6 月 13 日才完成代码合入。Coach Mode 也一直是可选项。它展示了一种具体做法，还没有成为所有 Agent 开发都必须遵守的标准答案。
+Coach Mode 仅作为可选项。它展示了一种具体做法，还没有成为所有 Agent 开发都必须遵守的标准答案。
+
+### Coach Mode 的工具箱：先把代码库变成可学习对象
+
+Coach Mode 解决了一个具体问题：Agent 往前走时，人怎样跟得上。后来我发现，
+单靠几轮提问还不够，提问需要有材料，材料也要能够留下来。GitHub 上有一批
+关注度很高的 Skill，可作为参考：
+
+- **Understand Anything**：把文件、函数、类、依赖和业务域组织成可探索的
+  知识图，提供 Guided Tours、语义搜索、Diff Impact 和 Onboarding。第一次
+  进入陌生仓库时，可以先生成一张地图，再由人解释关键节点。初次生成图谱
+  可能消耗很多 Token，后续增量更新会轻一些，图谱也要随着提交持续刷新。
+  [GitHub](https://github.com/Egonex-AI/Understand-Anything)
+- **Matt Pocock Skills**：你提到的 `matccpook`，我按
+  [`mattpocock/skills`](https://github.com/mattpocock/skills) 来理解；你说的
+  `tech skill`，我按其中的 [`teach`](https://github.com/mattpocock/skills/blob/main/skills/productivity/teach/SKILL.md)
+  来理解。`grill-me` 逐轮追问计划，`grill-with-docs` 把共识写进
+  `CONTEXT.md` 和 ADR，`teach` 用多次课程、回忆和学习记录让知识留下来，
+  `improve-codebase-architecture` 则把架构摩擦整理成可选择的报告。这一组
+  实践，和 Coach Mode 的“记忆、自检、教育”三个检查很接近：
+  [`grill-me`](https://github.com/mattpocock/skills/tree/main/skills/productivity/grill-me) ·
+  [`grill-with-docs`](https://github.com/mattpocock/skills/tree/main/skills/engineering/grill-with-docs) ·
+  [`improve-codebase-architecture`](https://github.com/mattpocock/skills/blob/main/skills/engineering/improve-codebase-architecture/SKILL.md)
+- **GitDiagram**：把仓库树和 README 变成可点击的架构图，并支持导出
+  Mermaid 或 PNG。它适合放在提问之前，让人先指出模块、依赖和自己不理解的
+  连接。[GitHub](https://github.com/ahmedkhaleel2004/gitdiagram)
+- **Repomix**：将经过忽略规则筛选的仓库打包成 AI 可读的代码库快照，并显示
+  Token 数量。它适合准备一次有边界的上下文，把阅读范围和成本摆在桌面上；
+  快照本身仍然只是材料，不能替代理解检查。
+  [GitHub](https://github.com/yamadashy/repomix)
+- **DeepWiki-Open**：自动生成文档、图和 codemap，适合作为异步 onboarding
+  材料。仓库 README 已说明维护重心正在转向 AsyncReview，所以我把它放在
+  参考样本里，使用前要先确认活跃度。
+  [GitHub](https://github.com/AsyncFuncAI/deepwiki-open)
+- **codebase-memory-mcp**：用 Tree-sitter 和 LSP 建立本地、可查询的代码关系
+  图，并通过 MCP 暴露给 Agent。调用链、类层次、Diff Impact、死代码和意外
+  依赖都可以成为 Coach Mode 的提问对象，适合需要更强结构分析的仓库。
+  [GitHub](https://github.com/DeusData/codebase-memory-mcp)
+
+我会把这些实践接成一条很朴素的 Coach Flow：
+
+`Repomix（限定材料）`
+→ `Understand Anything / GitDiagram（建立地图）`
+→ `grill-me / grill-with-docs（确认术语和决策）`
+→ `Coach Mode（逐层复述与放行）`
+→ `teach（留下可复习的知识）`
+→ `Humanize RLCR（执行与验收）`
+
+这样一来，Coach Mode 检查的就不只是一版 Plan。它还可以要求人先讲清楚
+仓库结构、关键路径和风险，再决定下一层是否放行。地图、术语、ADR、回忆题
+和代码验证分别承担不同的认知负荷；工具生成的图和摘要都要经过人的复述与
+代码核对，才能算真正过关。
 
 ### 三代 Humanize 第一次被放在一起
 
-5 月 16 日，H2 的公开 PoC 已经接近完成。刘思皓在群里第一次把三代 Humanize 连在一起：
+5 月 16 日，H2 的公开 PoC 已经接近完成。思皓在群里第一次把三代 Humanize 连在一起：
 
 > h1: A flow that works
 > h2: A platform/language that human build/test flow
@@ -326,11 +454,19 @@ H1 的反馈主要朝向产出。Builder 写代码，Reviewer 查错，测试和
 
 这条路线中还有一个很容易写错的项目名。群里使用的是 **Oh My Pi**，缩写 **OMP**。
 
-[Pi](https://github.com/earendil-works/pi) 是 Mario Zechner 开发的轻量 Agent Toolkit，提供模型调用、Agent Loop、工具和终端交互等基础部件。[Oh My Pi](https://github.com/can1357/oh-my-pi) 在 Pi 上继续扩展 Coding Harness。5 月 22 日，我在群里强烈推荐大家试试 OMP。到了 5 月 28 日，刘思皓的反应非常直接：`omp is soooooo good`，接着说 `I need to build h2 on omp`。
+[Pi](https://github.com/earendil-works/pi) 是 Mario Zechner 开发的轻量 Agent Toolkit，提供模型调用、Agent Loop、工具和终端交互等基础部件。[Oh My Pi](https://github.com/can1357/oh-my-pi) 在 Pi 上继续扩展 Coding Harness。5 月 22 日，我在群里强烈推荐大家试试 OMP。到了 5 月 28 日，思皓的反应非常直接：`omp is soooooo good`，接着说 `I need to build h2 on omp`。
 
 他此前花了很多时间给 H2 对接模型供应商、CLI 和运行设施。OMP 已经把这些地基搭好，Humanize 可以把精力放回 Flow 本身。这里的实现顺序要讲清楚：5 月 17 日的 H2 PoC 先采用了 TypeScript、HTML Runtime 和 MCP Hub；它当时没有“接入 OmniPi”。OMP 路线随后出现，H2/H3 的相关能力从 6 月开始在 `oh-my-humanize` 中重新实现。
 
 [oh-my-humanize](https://github.com/humanfia/oh-my-humanize) 最初建在 `PolyArch` 组织下，是 OMP 的一个增量 Fork。仓库在 6 月 1 日 UTC（北京时间 6 月 2 日）加入 Workflow 定义、条件与运行时，随后数小时已经有运行中的 Graph Revision 调度；6 月 12 日又集中落地 Mutable Workflow Runtime。6 月 19 日 UTC（北京时间 6 月 20 日），由于 Fork Network 无法直接分离，项目迁移到 `humanfia/oh-my-humanize`。今天回看两个仓库地址，它们属于同一条迁移历史。
+
+活跃仓库目前把这条路线说得更像一个完整产品：`omh` 是面向长程、Human-in-the-loop
+开发的 workflow-native terminal agent，Flow 可以冻结成可分发的 `.omhflow`，
+在 TUI 里查看图、暂停、做 Checkpoint、批准变更，再从安全位置恢复；未经过足够
+真实运行验证的 Flow 会留在候选目录，不会直接升格为内置能力。这些细节给 H3
+补上了一个容易被忽略的生命周期：生成 Flow 只是开始，安装、观察、升级、降级和
+复盘同样属于 Harness。[oh-my-humanize 当前 README](https://github.com/humanfia/oh-my-humanize#workflow-orchestration-advanced)
+还把 `max-activations`、Live Graph 和 Flow Promotion Policy 写成了运行接口。
 
 这次转向也修正了 H2 PoC 里一部分过度设计。6 月 16 日，群里很坦率地反思拿 HTML 当 Flow Language 的做法，新的实现改用 YAML 表达解开的 AST，把机械流程直接交给 JavaScript 或 TypeScript。代码越来越便宜以后，专门 DSL 的维护成本反而显得更重。Flow 需要稳定表达，表达方式可以务实一点。
 
@@ -346,7 +482,7 @@ H1 的反馈主要朝向产出。Builder 写代码，Reviewer 查错，测试和
 
 社区当时把 Anthropic 的方案放在第二层，把 H3 的实验放在第三层。这个分类属于 Humanize 社区的工程理解，并非 Anthropic 的官方定义。两者也没有可证明的直接影响关系。它们只是非常接近地撞上了同一个问题：任务启动前写下来的 Workflow，很可能无法预见长程执行中出现的全部信息。
 
-6 月 2 日，H3 被概括成 `agent mutable workflows`。早期设计里，Agent 可以提出修改，但真正改 Flow 需要人类批准；实验模式也允许放开这个 Gate。刘思皓同时连续问了三个问题：谁来设计和修改 Workflow？怎样修改才合理、合法？什么时机应该触发修改？他给出的答案也很诚实：“我不知道。”先把接口和基础设施搭出来，再用大量真实任务找方法。
+6 月 2 日，H3 被概括成 `agent mutable workflows`。早期设计里，Agent 可以提出修改，但真正改 Flow 需要人类批准；实验模式也允许放开这个 Gate。思皓同时连续问了三个问题：谁来设计和修改 Workflow？怎样修改才合理、合法？什么时机应该触发修改？他给出的答案也很诚实：“我不知道。”先把接口和基础设施搭出来，再用大量真实任务找方法。
 
 ![Dynamic Workflow 的三个层次](materials/figures/09_第三章_DynamicWorkflow三层.svg)
 
@@ -356,7 +492,7 @@ H1 的反馈主要朝向产出。Builder 写代码，Reviewer 查错，测试和
 
 ### Monitor Loop：让 Human 只在需要时回来
 
-H3 还在讨论怎样修改 Flow 时，社区先拼出了一套很实用的外挂方案。6 月 6 日，刘思皓把一条正在运行的 Codex `/goal` Session ID 交给另一个 Claude Code Session，再让 Claude 用 `/loop 1h` 定时读取代码库和完整 Transcript。群里后来把这种做法叫作 **Monitor Loop**。
+H3 还在讨论怎样修改 Flow 时，社区先拼出了一套很实用的外挂方案。6 月 6 日，思皓把一条正在运行的 Codex `/goal` Session ID 交给另一个 Claude Code Session，再让 Claude 用 `/loop 1h` 定时读取代码库和完整 Transcript。群里后来把这种做法叫作 **Monitor Loop**。
 
 这里和我最初的记忆有一点差别。典型组合里，Codex `/goal` 负责长程执行，Claude Code `/loop` 负责监控。群里也有人用一个 Codex `/goal` 去盯另一个 `/goal`，随即有人担心同一种模型会沿着相同的错误路径走下去。把 Worker 和 Monitor 分开，恰好能提供一个相关性稍低的外部视角。
 
@@ -368,7 +504,7 @@ Monitor 看的范围比普通 Code Review 更高一层。它会判断当前工�
 
 这套组合很快改变了值守方式。此前人肉同时盯三条 `/goal` 已经让人疲惫，接入外部监工后，群里有人自报可以在手机上看十条 Monitor Loop。这个数字只是个人实践记录，却把收益说得很清楚：高频、机械的检查交给另一个 Agent，人从固定 Check Point 退到异常处理和方向决策的位置。
 
-6 月 10 日，群聊里正式出现了 `Monitor Loop` 这个名字；6 月 17 日，[`monitor-codex-goal` Skill](https://github.com/SihaoLiu/skills/tree/ec9cd9e2733f28d93bbf66c37ef58722cf6390ce/monitor-codex-goal)公开，把只读审计、手机通知、人工审批和受控注入写成了一套完整规则。刘思皓当时把它叫作 “Humanize 2.7”。我觉得这个叫法很准确：它还没有走到 H3 的动态 Workflow，却已经把 Human Harness 放进了一条真实运行的长程任务里。
+6 月 10 日，群聊里正式出现了 `Monitor Loop` 这个名字；6 月 17 日，[`monitor-codex-goal` Skill](https://github.com/SihaoLiu/skills/tree/ec9cd9e2733f28d93bbf66c37ef58722cf6390ce/monitor-codex-goal)公开，把只读审计、手机通知、人工审批和受控注入写成了一套完整规则。思皓当时把它叫作 “Humanize 2.7”。我觉得这个叫法很准确：它还没有走到 H3 的动态 Workflow，却已经把 Human Harness 放进了一条真实运行的长程任务里。
 
 ![Monitor Loop 长程任务监控](materials/figures/10_第三章_MonitorLoop.svg)
 
@@ -392,9 +528,32 @@ KDA 是这一阶段最有说服力的例子。[Kernel Design Agents](https://git
 
 这里也需要做一处边界说明。群聊常把 KDA 与 NVIDIA Track、NVIDIA 工程背景成员的实践放在一起谈，公开仓库的归属是 MIT HAN Lab；“MLSys 2026 Competition NVIDIA Track”是竞赛赛道名称。更稳妥的说法是：它源于真实的 Kernel 优化实践，并通过公开竞赛结果给 Humanize Flow 提供了可复查的成绩。
 
+### 从社区文章里的案例看垂直 Flow
+
+社区群公告里几篇文章的标题和群内引用，把这条路线指向了不同的工程现场：
+[Humanize 带来的 Codex 使用范式变化](https://mp.weixin.qq.com/s/pScZ_9cA-6cWUPjfcGjNyg)
+关注 kernel 优化，[SGLang SOTA Humanize Loop](https://mp.weixin.qq.com/s/6uzb0OFDCDt4xmRcWaelaw)
+关注推理性能追踪，[Claude 实现、Codex 审查、人类决策领航](https://mp.weixin.qq.com/s/qceRk9Qfq0Q3CTdD6P1Vag)
+则把角色边界放在标题中心：模型承担大量执行，人保留目标选择、关键取舍和
+最终放行。微信公众号正文当前受到访问验证限制，下面的工程判断仍以公开仓库、
+PR 和竞赛材料为准。
+
+这些案例共同暴露出一条比“换一个更强模型”更稳定的工程路径：先把领域目标写
+成可测的 Acceptance，再把正确性、性能、资源约束和回归测试放进 Review；模型
+负责提出候选、实现和迭代，人负责判断这次迭代是否仍在解决原问题。[让 Agent 自己优化 CUDA Kernel](https://mp.weixin.qq.com/s/xIOIr4y60dzyeOn_3toipA)
+以及公开的 [KDA](https://github.com/mit-han-lab/kernel-design-agents) 和
+[FlashInfer Contest](https://github.com/mit-han-lab/mlsys2026-flashinfer-contest)
+材料，正好构成了“文章叙述—仓库实现—竞赛结果”的三层证据链。
+
+这也解释了为什么社区会愿意把 Humanize 重新做成垂直 Flow：通用模型提供泛化
+和搜索能力，领域 Skill、Benchmark、Profiler 与独立 Reviewer 提供约束。性能
+优化尤其不能只看“代码写出来没有”，还要看数值正确性、吞吐、延迟、显存和
+回归是否同时过关。文章里的成本和成绩属于具体作者、任务和时间窗口，正文沿用
+它们说明方法如何落地，不把它们写成跨项目的普遍保证。
+
 ### 当注意力重新回到 CLI 和模型
 
-到了这个阶段，社区对 Humanize 的使用开始分化。6 月 12 日，刘思皓说自己仍会在两个场景使用 H1：`gen-plan`，以及 PR 级别的工作；另一类价值来自 KDA 这种魔改 Humanize 的专用 Flow。他把更多精力放到了 `oh-my-humanize`。H1 没有消失，它从日常默认入口收缩成了规划工具、高风险 Review Loop 和专用工作流的底层组件。
+到了这个阶段，社区对 Humanize 的使用开始分化。6 月 12 日，思皓说自己仍会在两个场景使用 H1：`gen-plan`，以及 PR 级别的工作；另一类价值来自 KDA 这种魔改 Humanize 的专用 Flow。他把更多精力放到了 `oh-my-humanize`。H1 没有消失，它从日常默认入口收缩成了规划工具、高风险 Review Loop 和专用工作流的底层组件。
 
 “龙虾”也要在这里单独勘误。聊天记录里的“龙虾”或“小龙虾”一贯指 [OpenClaw](https://github.com/openclaw/openclaw)，不指 Humanize。OpenClaw 作为 Coding Agent 的评鉴热度逐渐下降以后，大家反而重新发现它背后的 Pi 很适合做轻量 Agent Core。于是出现了一个有趣的反差：庞大的成品工具淡出讨论，底层更小、更容易定制的 Harness 又回到了中心。
 
@@ -514,41 +673,20 @@ DeepSeek 的官方评测使用 Minimal Harness，也从另一个方向印证了�
 
 > 本章的群聊行号、官方 Model Card 与产品能力边界，见[第四章一手资料核查](materials/research/04_第四章_Harness方法论与责任制_一手资料核查.md)、[7 月 25 日 Arch—PM—Audit 与 Token 记录](materials/research/05_七月25日_ArchPMAudit与Subagent实践_一手资料核查.md)和[第四章参考资料卡](materials/references/04_第四章/README.md)。
 
-## 附录 A｜Token 消耗的社区记录
+## 附录 A｜社区入口与实践资料
 
-### 先说能不能从图里算出来
+群公告本身也值得记录。它把讨论范围限定在 AI/LLM 开发工具、流程和心得。公告原文已保存在[时间序语料](materials/sources/01_录音与OCR/01_Agent发展史_时间序语料_高召回初筛.md)中，下面把当时反复出现的入口和它们能支撑的设计思想集中列出来。
 
-这张流程图描述的是角色、模型档位和数据流，没有记录每个节点的输入 Token、输出 Token、缓存命中、调用次数、运行时长或账单金额。因此，Arch、PM、Audit、Contractor、Reviewer 和 K3 Worker 的消耗量无法从图中逐人还原，也不能把图里的节点数直接乘成总 Token。下面的数字来自群聊中的个人面板和口述，只能作为当时的观测样本。
-
-### 7 月 25 日的一张个人面板
-
-群里有人分享了自己写的 [`ai-usage`](https://github.com/SihaoLiu/ai-usage) 统计结果。原始 OCR 只留下了模型列表和两组占比：Claude 占 16% 的 Token、20% 的费用；Kimi 占 8% 的 Token、4% 的费用。GPT 占 40%、其余各家各占 20% 是当时对个人最终分布的预估，“总成本砍掉 50%”同样是预期，并非复盘结果。
-
-| 模型 | Token 占比 | 费用占比 | 口径 |
-| --- | ---: | ---: | --- |
-| Claude | 16% | 20% | 个人几日混合任务快照 |
-| Kimi | 8% | 4% | 个人几日混合任务快照 |
-| GPT | 预计 40% | 未给出 | 个人预估，不是已实现结果 |
-| 其他各家 | 预计各 20% | 未给出 | 个人预估，不是已实现结果 |
-
-把该面板的总 Token 和总费用都归一为 100，可以得到一个有限但有用的相对指标：Claude 的“费用占比 / Token 占比”为 `20 / 16 = 1.25`，Kimi 为 `4 / 8 = 0.50`。在这个人的任务组合和价格口径下，Kimi 的相对成本密度约为 Claude 的 40%，也就是 Claude 约为 Kimi 的 2.5 倍。这个计算不能替代官方单价，也不能外推到其他模型版本；它只说明为什么群里会把 Kimi 放在 Build，把 GPT 留在 Reviewer 和 Gatekeeper 位置。[原始记录 L62823-L62866](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:62823)
-
-### 按时间留下的可比性较低的样本
-
-| 时间 | 记录 | 可用的解释 |
+| 资料 | 可以提炼的设计思想 | 在正文中的用途 |
 | --- | --- | --- |
-| 3 月 24 日 | 一位成员估算自己一个月的 API 等价费用超过 1 万美元，同时提到手里有两组 `$200` 订阅 | 订阅、反代和 API 口径混在一起，不能与后面的套餐消耗直接相加。[原文 L1520-L1545](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:1520) |
-| 5 月 17 日 | 一位成员说自己平均每天约 `1.2B` Token，做系统级实验还需要上千个数据点 | 这是个人研究预算感受，不是 Humanize 平均值。[原文 L22572-L22596](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:22572) |
-| 5 月 27 日 | 对话中出现 `5.7M/天`、`13.3M/周（20%）`，以及在一分钟测试回路下 `800M—1.3B/天` 的估计 | 说话人和条件在 OCR 中有粘连，后一个范围是条件推算，不能与前两项合并。[原文 L27541-L27575](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:27541) |
-| 6 月 18 日 | 一位成员记录 `codex:omh:claude = 71:16:13`，并预估之后会变成 `omh:codex:claude = 80:10:10` | 它反映的是一个人的模型入口分布；`omh` 在原文没有展开，不能强行当作统一产品名称。[原文 L45435-L45450](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:45435) |
-| 7 月 25 日 | 群里问“GPT 以外日均多少 B”，回答先后出现“1B 多一点”和“不到 2B” | OCR 把提问、回答和时间标签粘在一起，无法确认账户和统计窗口，只能保留为 B 级线索。[原文 L62930-L62940](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:62930) |
+| [Humanize 1.0 内部 Slides](https://drive.google.com/file/d/1bvQl_IE1JyXqW6NkSMFPrs_G0erAdgca/view?usp=sharing) | 完成一次生成到运行一个 Loop；执行成本下降后，Judgement 成为瓶颈；GAAC 去掉组织模拟，只留下 Architect—Builder—Reviewer；Plan、Acceptance、Review、BitLesson 和 Delta Card 共同构成判断边界。 | 第一章：解释 H1 为什么追求最小而清晰的反馈循环。 |
+| [Humanize 2 技术说明 Slides](https://drive.google.com/file/d/1j-Xxtwf5GQ5PYcJ8Glnd6XOKNuizUNbl/view?usp=sharing) | Flow 变成 HTML Cartridge、Typed Artifact、Patchable Board 和 Trigger-driven Dataflow；Backend 可替换，观察面随 Flow 交付；H3 由 Agent Author、Deploy、Refine Flow。 | 第二章、第三章：支撑 Flow IR、Runtime 和 Dynamic Workflow 的技术细节。 |
+| [Humanize 1.0](https://github.com/PolyArch/humanize) · [oh-my-humanize](https://github.com/humanfia/oh-my-humanize) | H1 把 RLCR 固定成可运行的 Loop；OMH 把 Flow 做成可安装、可暂停、可 Checkpoint、可审批和可复盘的运行 Artifact。 | 贯穿三章：区分“能跑的 Flow”和“能管理生命周期的 Flow”。 |
+| [Multi-Agent Wiki](https://multi-agent.wiki/) | 从控制权、Context 隔离、冲突合并、取消/重试/追踪、人类批准等问题来比较 Subagent、Handoff、Parallel、Pipeline 和 Debate。 | 第一章、第四章：给 Agent Team 讨论补上控制结构和恢复语义。 |
+| [ai-usage](https://github.com/SihaoLiu/ai-usage) | 多供应商 Token/费用分解、时间投影、Live Monitor 和 JSON Snapshot，把“感觉很贵”变成可保存的观测记录。 | 附录 A：说明 Token 数据的来源、口径和后续统计方式。 |
+| [Humanize 带来的 Codex 使用范式变化](https://mp.weixin.qq.com/s/pScZ_9cA-6cWUPjfcGjNyg) · [Claude 实现、Codex 审查、人类决策领航](https://mp.weixin.qq.com/s/qceRk9Qfq0Q3CTdD6P1Vag) | 文章主题指向模型分工、独立 Review 和人的关键决策；具体技术细节待人工打开，以公开仓库和 PR 交叉印证。 | 第一章、第四章：作为社区实践语境。 |
+| [SGLang SOTA Humanize Loop](https://mp.weixin.qq.com/s/6uzb0OFDCDt4xmRcWaelaw) · [Agent 自优化 CUDA Kernel](https://mp.weixin.qq.com/s/xIOIr4y60dzyeOn_3toipA) | 文章主题指向性能 Benchmark、正确性证据和垂直 Flow；KDA 与 FlashInfer 公开材料提供可复查的实现和成绩。 | 第三章、第四章：补充 KDA、SGLang 和 FlashInfer 的实践窗口。 |
+| [月烧 6300 刀才明白：Agent 团队飞轮](https://mp.weixin.qq.com/s/S45KRGmDCCLu5GoBa7v2bQ) | 文章主题指向长程 Agent 团队的任务拆解、并行、模型路由和成本；具体数字仍按个人复盘处理。 | 第一章、附录 A：支撑 Machina 复盘，但不外推成通用 Benchmark。 |
+| [Humanize：一个 Prompt 重构 gem5 构建系统](https://zhuanlan.zhihu.com/p/2011939681307206316) | 大型真实迁移要靠可重复构建、生成代码链路、二进制一致性和上游审查来证明连续性；Prompt 只是入口，工程证据才是交付物。 | 第一章：支撑 gem5 PR #2969 的真实工程背景。 |
 
-### 套餐消耗更像压力测试记录
-
-7 月中下旬的几条口述能说明消耗速度，却不能组成同口径账单：有人说国内 `¥699` 套餐一天用了 25% 周额度、5% 月额度；有人用 K3 Swarm 一天烧完 `¥199`，另一个人说一个 36 分钟的 `/goal` 用掉了 3% 周额度；7 月 19 日还有一次错误的 Sol 长任务，三个小时烧掉 30% 的 Codex 周额度和 20% 的 Kimi 周额度。随后有人报告高强度 K3 用掉 `$100 + $200`，也有人估算 Kimi 每周要烧 `1.5 × $200`，7 月 24 日又出现“一小时用掉 10% Codex 额度”的记录。套餐档位、地区、模型、是否使用 Swarm、统计周期都不同，这些数字适合用来观察“错误路径会吞掉多少预算”，不适合做模型排名。[7 月 17—18 日原文 L58095-L58124](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:58095)；[7 月 19 日原文 L59329-L59330](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:59329)；[7 月 21—24 日原文 L60061-L60408](/Users/zevorn/Downloads/jing/Humanize聊天记录_完整并行OCR_去重版.md:60061)
-
-从这些零散数据里，暂时能得到三点判断：
-
-- 图里的角色数量不等于 Token 预算。并行层级越多，输入上下文、同步和 Review 也会一起计费；Anthropic 对多 Agent 的公开估计是同任务约 3—10 倍 Token，但社群样本没有做同任务对照。
-- 便宜模型承担 Build、较贵模型承担设计和 Review，是当时最清楚的一条个人实践规律。它优化的是“可接受产出 / 成本”，不是单纯追求更低的 Token 数。
-- 一次错误路径可能比模型单价差异更快吞掉预算。后续若要做正式统计，至少应同时记录模型、角色、输入/输出/缓存 Token、费用、任务是否通过验收、返工轮次和人类介入时间；单看 Token 总量会把“烧得多但产出好”和“烧得多却走偏”混在一起。
+> PS: 有些文章会受到微信或知乎的访问验证影响，正文不把文章标题当成唯一证据。
