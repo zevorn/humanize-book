@@ -44,8 +44,7 @@ Humanize 最初并不是一项按照产品路线图规划出来的 Agent Harness
 
 群里后来反复提到的一个早期用例，是对 gem5 构建系统的重构。[gem5 PR #2969](https://github.com/gem5/gem5/pull/2969) 尝试用 CMake + Ninja 替换长期使用的 SCons，同时加入一套可并行存在的 Bazel 构建系统。这个改造涉及五百多个文件，还要保留 ISA Parser、SLICC、SimObject 代码生成等既有链路，并验证两套构建系统得到一致的对象集合。它不是一个为了展示 Agent 而刻意设计的小样例，而是一个有历史包袱、有兼容要求、也要接受上游审查的真实工程问题。
 
-同时，群公告里收录的[《Humanize：一个 Prompt 重构 gem5 的构建系统》](https://zhuanlan.zhihu.com/p/2011939681307206316)
-把这次迁移写成了更容易理解的实践故事。
+同时，群公告里收录的[《Humanize：一个 Prompt 重构 gem5 的构建系统》](https://zhuanlan.zhihu.com/p/2011939681307206316)把这次迁移写成了更容易理解的实践故事。
 
 所以，如果用一个朴素的比喻来概括，Humanize 就像一把意外磨得很锋利的镰刀。最初只是因为眼前有一片麦子，想把它割得快一点，于是开始磨刀；等刀磨好以后，大家才发现，它处理的不只是一种麦子，也不只适用于一个项目。一个为个 Human 研究服务的小工具，由此逐渐显露出 Agent Harness 的通用价值。
 
@@ -95,13 +94,7 @@ OpenAI 在 2 月发布的[《Harness engineering: leveraging Codex in an agent-f
 
 这场讨论的重要性，不在于提前判定 Subagents 一定战胜 Agent Teams，而在于社区开始把 Agent 数量和协作拓扑分开看。开很多 Agent 并不自动构成好的 Agent Team；通信是否可见、任务边界是否独立、结果能否被外部验证，往往比数量更重要。
 
-[Multi-Agent Wiki](https://multi-agent.wiki/) 也把这组问题整理
-成了一套工程检查：谁在某个时刻拥有控制权，Agent 之间怎样隔离 Context，冲突结果
-怎样合并，任务如何取消、重试和追踪，计划什么时候应该落到代码，以及哪些动作
-必须经过 Human-in-the-loop。它的价值不在于给出唯一架构，而在于让 Subagent、
-Handoff、Parallel、Pipeline、Debate 和 Blackboard 等模式都带着适用条件和失败
-方式进入讨论。社区后来谈“多 Agent”时，实际上已经从数量比较走向了控制结构和
-恢复语义的比较。
+[Multi-Agent Wiki](https://multi-agent.wiki/) 也把这组问题整理成了一套工程检查：谁在某个时刻拥有控制权，Agent 之间怎样隔离 Context，冲突结果怎样合并，任务如何取消、重试和追踪，计划什么时候应该落到代码，以及哪些动作必须经过 Human-in-the-loop。它的价值不在于给出唯一架构，而在于让 Subagent、Handoff、Parallel、Pipeline、Debate 和 Blackboard 等模式都带着适用条件和失败方式进入讨论。社区后来谈“多 Agent”时，实际上已经从数量比较走向了控制结构和恢复语义的比较。
 
 ![Subagent 与 Agent Teams 协作拓扑](materials/figures/03_第一章_Agent协作拓扑.svg)
 
@@ -129,38 +122,18 @@ Humanize 进入快速实践期后，大家很快遇到一个现实问题：怎�
 
 ### Judgement Engineering：把判断放回流程
 
-4 月的 Humanize 内部分享把这段实践概括成 **From Agentic Flow to Judgement
-Engineering**。它提出了一个很朴素的变化：开发的单位从一次 completion 变成
-一个 loop；执行越来越便宜以后，真正稀缺的工作转向判断。目标是否可测，证据
-是否足够，什么时候继续、暂停、改计划或重新开始，这些决定会直接放大或限制
-Agent 的执行速度。[Humanize 1.0 内部 Slides](https://drive.google.com/file/d/1bvQl_IE1JyXqW6NkSMFPrs_G0erAdgca/view?usp=sharing)
-把这条判断写成了一整套设计检查。
+4 月的 Humanize 内部分享把这段实践概括成 **From Agentic Flow to Judgement Engineering**。它提出了一个很朴素的变化：开发的单位从一次 completion 变成一个 loop；执行越来越便宜以后，真正稀缺的工作转向判断。目标是否可测，证据是否足够，什么时候继续、暂停、改计划或重新开始，这些决定会直接放大或限制 Agent 的执行速度.[Humanize 1.0 内部 Slides ](https://drive.google.com/file/d/1bvQl_IE1JyXqW6NkSMFPrs_G0erAdgca/view?usp=sharing)把这条判断写成了一整套设计检查。
 
-这份 Slides 也回看了 GAAC 为什么没有沿着“模拟一支完整工程团队”的方向继续
-扩张。角色越多，交接越多；每次摘要都会丢掉一部分上下文，目标也可能在下一个
-角色手里被重新解释。Humanize 最后留下了最小的判断循环： Human 作为 Architect
-确定意图，Builder 负责实现，Reviewer 对完成度和正确性施加独立压力。它删掉
-了大量组织外壳，保留能让判断变得更清楚的部分。
+这份 Slides 也回看了 GAAC 为什么没有沿着“模拟一支完整工程团队”的方向继续扩张。角色越多，交接越多；每次摘要都会丢掉一部分上下文，目标也可能在下一个角色手里被重新解释。Humanize 最后留下了最小的判断循环： Human 作为 Architect 确定意图，Builder 负责实现，Reviewer 对完成度和正确性施加独立压力。它删掉了大量组织外壳，保留能让判断变得更清楚的部分。
 
 这里面有几条对正文很有帮助的工程原则：
 
-- **Plan 是 Loop 的宪法**：先写 Goal、Non-goals、可观察的 Acceptance、
-  Constraints、Milestones 和 Risks，再允许第一轮执行；计划接受以后保持只读，
-  中途修改要留下 Amendment Record。
-- **Review 是判断边界**：Builder 的结构化 Summary 是实现阶段交给 Reviewer
-  的接口，Reviewer 再结合 Diff、Plan 和验收证据判断 Goal Alignment、回归风险
-  与真实进度。
-- **机械检查先替 Human 做**：Delta Card 可以先比较声明改动与磁盘 Diff、测试与
-  Benchmark 是否真的运行，再把更少、更干净的问题交给 Reviewer。
-- **失败要留下方法学痕迹**：BitLesson 记录跨轮次的教训，Selector 只挑当前
-  任务需要的记忆；Review 反复失败以后，应该沉淀成新的 Gate、Issue 或测试，
-  而不是继续靠 Human 临时提醒。
+- **Plan 是 Loop 的宪法**：先写 Goal、Non-goals、可观察的 Acceptance、Constraints、Milestones 和 Risks，再允许第一轮执行；计划接受以后保持只读，中途修改要留下 Amendment Record。
+- **Review 是判断边界**：Builder 的结构化 Summary 是实现阶段交给 Reviewer 的接口，Reviewer 再结合 Diff、Plan 和验收证据判断 Goal Alignment、回归风险与真实进度。
+- **机械检查先替 Human 做**：Delta Card 可以先比较声明改动与磁盘 Diff、测试与 Benchmark 是否真的运行，再把更少、更干净的问题交给 Reviewer。
+- **失败要留下方法学痕迹**：BitLesson 记录跨轮次的教训，Selector 只挑当前任务需要的记忆；Review 反复失败以后，应该沉淀成新的 Gate、Issue 或测试，而不是继续靠 Human 临时提醒。
 
-这些原则解释了为什么 Humanize 的价值常常落在“判断在哪里发生”上。后来的
-社区文章把同一套结构放进 kernel、SGLang、gem5 和长程重构等不同任务里：
-目标由 Human 设定，Builder 持续推进，独立 Review 和领域 Benchmark 负责把结果拉回
-可验证的范围。文章本身属于项目经验记录，具体成绩仍应回到仓库、PR 和测试
-结果核对；它们提供的是实践证据，不是通用模型排名。
+这些原则解释了为什么 Humanize 的价值常常落在“判断在哪里发生”上。后来的社区文章把同一套结构放进 kernel、SGLang、gem5 和长程重构等不同任务里：目标由 Human 设定，Builder 持续推进，独立 Review 和领域 Benchmark 负责把结果拉回可验证的范围。文章本身属于项目经验记录，具体成绩仍应回到仓库、PR 和测试结果核对；它们提供的是实践证据，不是通用模型排名。
 
 ### 当方法被模型吃进权重
 
@@ -266,30 +239,16 @@ Model 和 Tool 只解释了 Agent 能理解什么、能调用什么。Action 与
 
 ### H2 的技术底稿：Flow 成为可观察的数据
 
-5 月的 H2 技术说明把这个 PoC 讲得比“Flow IR”更具体：H2 是一层位于 H1
-之下的 Flow Runtime，和 1.0 并行存在。一个 Flow 被装进单个 HTML Cartridge，
-里面同时声明 Manifest、能力权限、Typed State、Prompt Template、执行图和
-可绑定的 View；运行时可以读取它、校验它、展示它，也可以在不改 Runtime 的情况
-下替换它。[Humanize 2 技术说明 Slides](https://drive.google.com/file/d/1j-Xxtwf5GQ5PYcJ8Glnd6XOKNuizUNbl/view?usp=sharing)
-把这套结构画得很清楚。
+5 月的 H2 技术说明把这个 PoC 讲得比“Flow IR”更具体：H2 是一层位于 H1 之下的 Flow Runtime，和 1.0 并行存在。一个 Flow 被装进单个 HTML Cartridge，里面同时声明 Manifest、能力权限、Typed State、Prompt Template、执行图和可绑定的 View；运行时可以读取它、校验它、展示它，也可以在不改 Runtime 的情况下替换它。[Humanize 2 技术说明 Slides ](https://drive.google.com/file/d/1j-Xxtwf5GQ5PYcJ8Glnd6XOKNuizUNbl/view?usp=sharing)把这套结构画得很清楚。
 
 几个实现细节值得留在正文里：
 
-- **Artifact 与 Board 分开**：Artifact 是带 Schema 的不可变结果，Board 是可以
-  Patch 的共享状态；前者适合留证据，后者适合推进状态和协作。
-- **Trigger-driven Dataflow**：节点等待输入到达后再触发，通过 `await`、分支、
-  Loop 和嵌套组合执行，Flow 不再只是脚本里写死的调用顺序。
-- **Flow 与 Backend 解耦**：同一张图里的不同 Agent 节点可以替换 Claude、Codex
-  或其他后端，模型更换不会迫使整套流程重写。
-- **观察面随 Flow 一起交付**：本地 Hub 展示 Session Tree、时间线、Live Board
-  和运行中的 View， Human 在这里看到的是状态和证据，Agent 仍然负责执行。
+- **Artifact 与 Board 分开**：Artifact 是带 Schema 的不可变结果，Board 是可以 Patch 的共享状态；前者适合留证据，后者适合推进状态和协作。
+- **Trigger-driven Dataflow**：节点等待输入到达后再触发，通过 `await`、分支、Loop 和嵌套组合执行，Flow 不再只是脚本里写死的调用顺序。
+- **Flow 与 Backend 解耦**：同一张图里的不同 Agent 节点可以替换 Claude、Codex 或其他后端，模型更换不会迫使整套流程重写。
+- **观察面随 Flow 一起交付**：本地 Hub 展示 Session Tree、时间线、Live Board 和运行中的 View， Human 在这里看到的是状态和证据，Agent 仍然负责执行。
 
-H2 的三个案例也很有代表性：RLCR 被重新写成 Cartridge，`gen-idea` 用六个
-并行 Explorer 做 Fan-out，实验性的 Team Intervention 则让 Captain 在运行中
-通过 `agent_spawn_child` 和 `agent_send_message` 改变 Worker 的后续任务。它们
-说明多 Agent 的难点逐渐从“能不能并发”转成“并发关系能不能被写出来、观察到、
-暂停和复盘”。这正是 H2 为 H3 留下的底座：Agent 将来可以自己生成、部署和
-修订 Flow，但每一次改变仍然有可检查的 Artifact、Board 和运行轨迹。
+H2 的三个案例也很有代表性：RLCR 被重新写成 Cartridge，`gen-idea` 用六个并行 Explorer 做 Fan-out，实验性的 Team Intervention 则让 Captain 在运行中通过 `agent_spawn_child` 和 `agent_send_message` 改变 Worker 的后续任务。它们说明多 Agent 的难点逐渐从“能不能并发”转成“并发关系能不能被写出来、观察到、暂停和复盘”。这正是 H2 为 H3 留下的底座：Agent 将来可以自己生成、部署和修订 Flow，但每一次改变仍然有可检查的 Artifact、Board 和运行轨迹。
 
 我很喜欢这段不整齐的历史。大家先想换模型，接着讨论 IR、类型、编译器和 VM，最后落下来的 PoC 又采用了另一套基础设施。概念与实现互相试探，任何一版都还谈不上最终答案。H2 真正完成的转向，是让 Flow 本身第一次成为开发对象： Human 可以构造它、运行它、检查它，也可以拿不同模型与工具去替换其中的节点。
 
@@ -379,21 +338,8 @@ Coach Mode 仅作为可选项。它展示了一种具体做法，还没有成为
 
 Coach Mode 解决了一个具体问题：Agent 往前跑时， Human 怎样跟得上。后来我发现，单靠几轮提问还不够，提问需要有材料，材料也要能够留下来。GitHub 上有一批关注度很高的 Skill，可作为参考：
 
-- **Understand Anything**：把文件、函数、类、依赖和业务域组织成可探索的
-  知识图，提供 Guided Tours、语义搜索、Diff Impact 和 Onboarding。第一次
-  进入陌生仓库时，可以先生成一张地图，再由 Human 解释关键节点。初次生成图谱
-  可能消耗很多 Token，后续增量更新会轻一些，图谱也要随着提交持续刷新。
-  [GitHub](https://github.com/Egonex-AI/Understand-Anything)
-- **Matt Pocock Skills**：你提到的 `matccpook`，我按
-  [`mattpocock/skills`](https://github.com/mattpocock/skills) 来理解；你说的
-  `tech skill`，我按其中的 [`teach`](https://github.com/mattpocock/skills/blob/main/skills/productivity/teach/SKILL.md)
-  来理解。`grill-me` 逐轮追问计划，`grill-with-docs` 把共识写进
-  `CONTEXT.md` 和 ADR，`teach` 用多次课程、回忆和学习记录让知识留下来，
-  `improve-codebase-architecture` 则把架构摩擦整理成可选择的报告。这一组
-  实践，和 Coach Mode 的“记忆、自检、教育”三个检查很接近：
-  [`grill-me`](https://github.com/mattpocock/skills/tree/main/skills/productivity/grill-me) ·
-  [`grill-with-docs`](https://github.com/mattpocock/skills/tree/main/skills/engineering/grill-with-docs) ·
-  [`improve-codebase-architecture`](https://github.com/mattpocock/skills/blob/main/skills/engineering/improve-codebase-architecture/SKILL.md)
+- **Understand Anything**：把文件、函数、类、依赖和业务域组织成可探索的知识图，提供 Guided Tours、语义搜索、Diff Impact 和 Onboarding。第一次进入陌生仓库时，可以先生成一张地图，再由 Human 解释关键节点。初次生成图谱可能消耗很多 Token，后续增量更新会轻一些，图谱也要随着提交持续刷新。[GitHub](https://github.com/Egonex-AI/Understand-Anything)
+- **Matt Pocock Skills**：你提到的 `matccpook`，我按 [`mattpocock/skills`](https://github.com/mattpocock/skills) 来理解；你说的 `tech skill`，我按其中的 [`teach`](https://github.com/mattpocock/skills/blob/main/skills/productivity/teach/SKILL.md)来理解。`grill-me` 逐轮追问计划,`grill-with-docs` 把共识写进`CONTEXT.md` 和 ADR，`teach` 用多次课程、回忆和学习记录让知识留下来，`improve-codebase-architecture` 则把架构摩擦整理成可选择的报告。这一组实践，和 Coach Mode 的“记忆、自检、教育”三个检查很接近： [`grill-me`](https://github.com/mattpocock/skills/tree/main/skills/productivity/grill-me) · [`grill-with-docs`](https://github.com/mattpocock/skills/tree/main/skills/engineering/grill-with-docs) · [`improve-codebase-architecture`](https://github.com/mattpocock/skills/blob/main/skills/engineering/improve-codebase-architecture/SKILL.md)
 - **GitDiagram**：把仓库树和 README 变成可点击的架构图，并支持导出Mermaid 或 PNG。它适合放在提问之前，让 Human 先指出模块、依赖和自己不理解的连接。[GitHub](https://github.com/ahmedkhaleel2004/gitdiagram)
 - **Repomix**：将经过忽略规则筛选的仓库打包成 AI 可读的代码库快照，并显示 Token 数量。它适合准备一次有边界的上下文，把阅读范围和成本摆在桌面上；快照本身仍然只是材料，不能替代理解检查。[GitHub](https://github.com/yamadashy/repomix)
 - **DeepWiki-Open**：自动生成文档、图和 codemap，适合作为异步 onboarding 材料。仓库 README 已说明维护重心正在转向 AsyncReview，所以我把它放在参考样本里，使用前要先确认活跃度。[GitHub](https://github.com/AsyncFuncAI/deepwiki-open)
@@ -408,10 +354,7 @@ Coach Mode 解决了一个具体问题：Agent 往前跑时， Human 怎样跟�
 → `teach（留下可复习的知识）`
 → `Humanize RLCR（执行与验收）`
 
-这样一来，Coach Mode 检查的就不只是一版 Plan。它还可以要求 Human 先讲清楚
-仓库结构、关键路径和风险，再决定下一层是否放行。地图、术语、ADR、回忆题
-和代码验证分别承担不同的认知负荷；工具生成的图和摘要都要经过 Human 的复述与
-代码核对，才能算真正过关。
+这样一来，Coach Mode 检查的就不只是一版 Plan。它还可以要求 Human 先讲清楚仓库结构、关键路径和风险，再决定下一层是否放行。地图、术语、ADR、回忆题和代码验证分别承担不同的认知负荷；工具生成的图和摘要都要经过 Human 的复述与代码核对，才能算真正过关。
 
 ### 三代 Humanize 第一次被放在一起
 
@@ -447,13 +390,7 @@ Coach Mode 解决了一个具体问题：Agent 往前跑时， Human 怎样跟�
 
 [oh-my-humanize](https://github.com/humanfia/oh-my-humanize) 最初建在 `PolyArch` 组织下，是 OMP 的一个增量 Fork。仓库在 6 月 1 日 UTC（北京时间 6 月 2 日）加入 Workflow 定义、条件与运行时，随后数小时已经有运行中的 Graph Revision 调度；6 月 12 日又集中落地 Mutable Workflow Runtime。6 月 19 日 UTC（北京时间 6 月 20 日），由于 Fork Network 无法直接分离，项目迁移到 `humanfia/oh-my-humanize`。今天回看两个仓库地址，它们属于同一条迁移历史。
 
-活跃仓库目前把这条路线说得更像一个完整产品：`omh` 是面向长程、Human-in-the-loop
-开发的 workflow-native terminal agent，Flow 可以冻结成可分发的 `.omhflow`，
-在 TUI 里查看图、暂停、做 Checkpoint、批准变更，再从安全位置恢复；未经过足够
-真实运行验证的 Flow 会留在候选目录，不会直接升格为内置能力。这些细节给 H3
-补上了一个容易被忽略的生命周期：生成 Flow 只是开始，安装、观察、升级、降级和
-复盘同样属于 Harness。[oh-my-humanize 当前 README](https://github.com/humanfia/oh-my-humanize#workflow-orchestration-advanced)
-还把 `max-activations`、Live Graph 和 Flow Promotion Policy 写成了运行接口。
+活跃仓库目前把这条路线说得更像一个完整产品：`omh` 是面向长程、Human-in-the-loop 开发的 workflow-native terminal agent，Flow 可以冻结成可分发的 `.omhflow`，在 TUI 里查看图、暂停、做 Checkpoint、批准变更，再从安全位置恢复；未经过足够真实运行验证的 Flow 会留在候选目录，不会直接升格为内置能力。这些细节给 H3 补上了一个容易被忽略的生命周期：生成 Flow 只是开始，安装、观察、升级、降级和复盘同样属于 Harness。[oh-my-humanize 当前 README](https://github.com/humanfia/oh-my-humanize#workflow-orchestration-advanced)还把 `max-activations`、Live Graph 和 Flow Promotion Policy 写成了运行接口。
 
 这次转向也修正了 H2 PoC 里一部分过度设计。6 月 16 日，群里很坦率地反思拿 HTML 当 Flow Language 的做法，新的实现改用 YAML 表达解开的 AST，把机械流程直接交给 JavaScript 或 TypeScript。代码越来越便宜以后，专门 DSL 的维护成本反而显得更重。Flow 需要稳定表达，表达方式可以务实一点。
 
@@ -517,26 +454,11 @@ KDA 是这一阶段最有说服力的例子。[Kernel Design Agents](https://git
 
 ### 从社区文章里的案例看垂直 Flow
 
-社区群公告里几篇文章的标题和群内引用，把这条路线指向了不同的工程现场：
-[Humanize 带来的 Codex 使用范式变化](https://mp.weixin.qq.com/s/pScZ_9cA-6cWUPjfcGjNyg)
-关注 kernel 优化，[SGLang SOTA Humanize Loop](https://mp.weixin.qq.com/s/6uzb0OFDCDt4xmRcWaelaw)
-关注推理性能追踪，[Claude 实现、Codex 审查、 Human 决策领航](https://mp.weixin.qq.com/s/qceRk9Qfq0Q3CTdD6P1Vag)
-则把角色边界放在标题中心：模型承担大量执行， Human 保留目标选择、关键取舍和
-最终放行。微信公众号正文当前受到访问验证限制，下面的工程判断仍以公开仓库、
-PR 和竞赛材料为准。
+社区群公告里几篇文章的标题和群内引用，把这条路线指向了不同的工程现场：[Humanize 带来的 Codex 使用范式变化](https://mp.weixin.qq.com/s/pScZ_9cA-6cWUPjfcGjNyg)关注 kernel 优化，[SGLang SOTA Humanize Loop](https://mp.weixin.qq.com/s/6uzb0OFDCDt4xmRcWaelaw)关注推理性能追踪，[Claude 实现、Codex 审查、 Human 决策领航](https://mp.weixin.qq.com/s/qceRk9Qfq0Q3CTdD6P1Vag)则把角色边界放在标题中心：模型承担大量执行， Human 保留目标选择、关键取舍和最终放行。微信公众号正文当前受到访问验证限制，下面的工程判断仍以公开仓库、PR 和竞赛材料为准。
 
-这些案例共同暴露出一条比“换一个更强模型”更稳定的工程路径：先把领域目标写
-成可测的 Acceptance，再把正确性、性能、资源约束和回归测试放进 Review；模型
-负责提出候选、实现和迭代， Human 负责判断这次迭代是否仍在解决原问题。[让 Agent 自己优化 CUDA Kernel](https://mp.weixin.qq.com/s/xIOIr4y60dzyeOn_3toipA)
-以及公开的 [KDA](https://github.com/mit-han-lab/kernel-design-agents) 和
-[FlashInfer Contest](https://github.com/mit-han-lab/mlsys2026-flashinfer-contest)
-材料，正好构成了“文章叙述—仓库实现—竞赛结果”的三层证据链。
+这些案例共同暴露出一条比“换一个更强模型”更稳定的工程路径：先把领域目标写成可测的 Acceptance，再把正确性、性能、资源约束和回归测试放进 Review；模型负责提出候选、实现和迭代， Human 负责判断这次迭代是否仍在解决原问题。[让 Agent 自己优化 CUDA Kernel](https://mp.weixin.qq.com/s/xIOIr4y60dzyeOn_3toipA)以及公开的 [KDA](https://github.com/mit-han-lab/kernel-design-agents) 和 [FlashInfer Contest](https://github.com/mit-han-lab/mlsys2026-flashinfer-contest)材料，正好构成了“文章叙述—仓库实现—竞赛结果”的三层证据链。
 
-这也解释了为什么社区会愿意把 Humanize 重新做成垂直 Flow：通用模型提供泛化
-和搜索能力，领域 Skill、Benchmark、Profiler 与独立 Reviewer 提供约束。性能
-优化尤其不能只看“代码写出来没有”，还要看数值正确性、吞吐、延迟、显存和
-回归是否同时过关。文章里的成本和成绩属于具体作者、任务和时间窗口，正文沿用
-它们说明方法如何落地，不把它们写成跨项目的普遍保证。
+这也解释了为什么社区会愿意把 Humanize 重新做成垂直 Flow：通用模型提供泛化和搜索能力，领域 Skill、Benchmark、Profiler 与独立 Reviewer 提供约束。性能优化尤其不能只看“代码写出来没有”，还要看数值正确性、吞吐、延迟、显存和回归是否同时过关。文章里的成本和成绩属于具体作者、任务和时间窗口，正文沿用它们说明方法如何落地，不把它们写成跨项目的普遍保证。
 
 ### 当注意力重新回到 CLI 和模型
 
